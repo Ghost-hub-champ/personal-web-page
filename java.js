@@ -154,32 +154,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const ARTICLES = [
     { 
       title: "A strong mind does not ask for pity.", 
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=750&fit=crop",
+      image: "images/a1.jpg",
       link: "articles/article-draft.html"
     },
     { 
       title: "Motivation fades. Systems stay.", 
-      image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&h=750&fit=crop", 
+      image: "images/a2.jpg", 
       link: "articles/article-2.html"
     },
     { 
       title: "Long-term thinking is a competitive advantage.", 
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=750&fit=crop&sat=-100", 
+      image: "images/a3.jpg", 
       link: "articles/article-draft.html"
     },
     { 
       title: "Discipline is quieter than motivation.", 
-      image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&h=750&fit=crop", 
+      image: "images/a4.jpg", 
       link: "articles/article-draft.html"
     },
     { 
       title: "Your mindset shapes your reality.", 
-      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=750&fit=crop", 
+      image: "images/a5.jpg", 
       link: "articles/article-draft.html"
     },
     { 
       title: "Growth happens outside comfort zones.", 
-       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=750&fit=crop&hue=180", 
+       image: "images/a6.jpg", 
       link: "articles/article-draft.html"
     }
   ];
