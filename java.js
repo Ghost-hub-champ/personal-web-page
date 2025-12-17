@@ -401,7 +401,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let touchStartY = 0;
   let isHorizontalGesture = false;
 
-  const articleStage = document.getElementById("article-section");
+  const articleStage = document.getElementById("article-section.stage");
 
   if (articleStage) {
 

@@ -1585,7 +1585,7 @@ footer {
   padding-bottom: 60px;
 }
 #article-section.stage {
-  height: auto;
+  height: 85vh;
   min-height: 520px;
   padding-top: 300px;
   padding-bottom: 120px;
@@ -1594,6 +1594,7 @@ footer {
 .card {
   width: 240px;
   margin-left: -120px;
+  height: 100%;
 }
 
 .carousel-btn {
