@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     { 
       title: "Long-term thinking is a competitive advantage.", 
-      image: "images/a3.jpg", 
+      image: "images/a3.jpg",
       link: "articles/article-draft.html"
     },
     { 
@@ -392,6 +392,54 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
     }
   });
+
+
+    // ===================================
+  // MOBILE TOUCH CONTROLS — ARTICLES
+  // ===================================
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let isHorizontalGesture = false;
+
+  const articleStage = document.getElementById("article-section");
+
+  if (articleStage) {
+
+    articleStage.addEventListener("touchstart", (e) => {
+      const t = e.touches[0];
+      touchStartX = t.clientX;
+      touchStartY = t.clientY;
+      isHorizontalGesture = false;
+    }, { passive: true });
+
+    articleStage.addEventListener("touchmove", (e) => {
+      const t = e.touches[0];
+      const dx = t.clientX - touchStartX;
+      const dy = t.clientY - touchStartY;
+
+      // Decide direction early
+      if (!isHorizontalGesture) {
+        if (Math.abs(dx) > Math.abs(dy) + 10) {
+          isHorizontalGesture = true;
+        }
+      }
+
+      // If horizontal → control carousel
+      if (isHorizontalGesture) {
+        e.preventDefault(); // stop vertical scroll
+        velocity -= dx * 0.04;
+        touchStartX = t.clientX;
+      }
+
+    }, { passive: false });
+
+    articleStage.addEventListener("touchend", () => {
+      isHorizontalGesture = false;
+    });
+
+  }
+
+
 
   // Initialize
   update();
