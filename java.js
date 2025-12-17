@@ -136,8 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
         activateImage(step.dataset.image);
       });
       step.addEventListener("mouseleave", () => {
-    resetToBase();
-  });
+        resetToBase();
+      });
     });
 
     const ladderCard = document.querySelector(".ladder-card");
@@ -184,11 +184,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   ];
 
-  const GAP = 320;
-  const MAX_ROT = 22;
-  const MAX_Z = 280;
-  const MIN_SCALE = 0.58;
-  const SCALE_BOOST = 0.42;
+  // Responsive carousel parameters
+  const isMobile = window.innerWidth <= 600;
+  
+  const GAP = isMobile ? 260 : 320;
+  const MAX_ROT = isMobile ? 18 : 22;
+  const MAX_Z = isMobile ? 200 : 280;
+  const MIN_SCALE = isMobile ? 0.68 : 0.58;
+  const SCALE_BOOST = isMobile ? 0.32 : 0.42;
   const FRICTION = 0.88;
   const SNAP_THRESHOLD = 1.8;
   const SNAP_STRENGTH = 0.16;
@@ -285,7 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function update() {
     const track = items.length * GAP;
     const half = track / 2;
-    const visibilityThreshold = 570;
+    const visibilityThreshold = isMobile ? 400 : 570;
 
     let closest = Infinity;
     let closestIndex = 0;
@@ -393,53 +396,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-
-    // ===================================
-  // MOBILE TOUCH CONTROLS — ARTICLES
-  // ===================================
+  // Touch support for mobile
   let touchStartX = 0;
-  let touchStartY = 0;
-  let isHorizontalGesture = false;
+  let touchEndX = 0;
 
-  const articleStage = document.getElementById("article-section.stage");
+  cardsRoot.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
 
-  if (articleStage) {
+  cardsRoot.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
 
-    articleStage.addEventListener("touchstart", (e) => {
-      const t = e.touches[0];
-      touchStartX = t.clientX;
-      touchStartY = t.clientY;
-      isHorizontalGesture = false;
-    }, { passive: true });
-
-    articleStage.addEventListener("touchmove", (e) => {
-      const t = e.touches[0];
-      const dx = t.clientX - touchStartX;
-      const dy = t.clientY - touchStartY;
-
-      // Decide direction early
-      if (!isHorizontalGesture) {
-        if (Math.abs(dx) > Math.abs(dy) + 10) {
-          isHorizontalGesture = true;
-        }
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+    
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // Swiped left - go to next
+        velocity += GAP * 0.18;
+      } else {
+        // Swiped right - go to previous
+        velocity -= GAP * 0.18;
       }
-
-      // If horizontal → control carousel
-      if (isHorizontalGesture) {
-        e.preventDefault(); // stop vertical scroll
-        velocity -= dx * 0.04;
-        touchStartX = t.clientX;
-      }
-
-    }, { passive: false });
-
-    articleStage.addEventListener("touchend", () => {
-      isHorizontalGesture = false;
-    });
-
+    }
   }
-
-
 
   // Initialize
   update();
