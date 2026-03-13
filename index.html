@@ -4,309 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shahid Lone — Systems Builder</title>
-  <!-- OpenGraph meta -->
-  <meta property="og:title" content="Shahid Lone — Systems Builder">
+  <meta property="og:title"       content="Shahid Lone — Systems Builder">
   <meta property="og:description" content="Five systems. One builder. Kashmir.">
-  <meta property="og:image" content="/preview.jpg">
-  <meta property="og:type" content="website">
+  <meta property="og:image"       content="/preview.jpg">
+  <meta property="og:type"        content="website">
+  <meta name="theme-color"        content="#000000">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Geist:wght@300;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23000000'/><text x='50%25' y='68%25' text-anchor='middle' font-size='62' fill='%23f0ebe2' font-family='Georgia,serif' font-style='italic'>S</text></svg>">
-  <style>
-    /* Loader styles */
-    #loader {
-      position: fixed;
-      inset: 0;
-      background: black;
-      z-index: 10000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--mono, 'Geist Mono', monospace);
-      color: var(--off, #f0ebe2);
-      transition: opacity 0.8s ease 0.5s;
-      pointer-events: none;
-    }
-    #loader.fade-out {
-      opacity: 0;
-    }
-    .loader-text {
-      font-size: clamp(1.5rem, 5vw, 2.5rem);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-    .loader-sub {
-      font-size: 0.875rem;
-      color: var(--off-2, #a89f94);
-    }
-
-    :root {
-      --black:#000; --off:#f0ebe2; --off-2:#a89f94; --off-3:#3e3830; --off-4:#1a1612;
-      --border:rgba(240,235,226,0.08); --serif:'Playfair Display',Georgia,serif;
-      --sans:'Geist',system-ui,sans-serif; --mono:'Geist Mono',monospace;
-    }
-    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{background:var(--black);color:var(--off);font-family:var(--sans);font-size:14px;line-height:1.5;cursor:none}
-    body.loading{overflow:hidden;}
-    @media(max-width:600px){body{cursor:auto}}
-    a{color:inherit;text-decoration:none}
-
-    /* CURSOR */
-    #c-dot{position:fixed;z-index:9999;width:6px;height:6px;background:var(--off);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);transition:width .18s,height .18s;mix-blend-mode:difference}
-    #c-ring{position:fixed;z-index:9998;width:30px;height:30px;border:1px solid var(--off);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);transition:width .32s,height .32s;mix-blend-mode:difference}
-    @media(max-width:600px){#c-dot,#c-ring{display:none}}
-
-    #prog{position:fixed;top:0;left:0;height:1px;width:0%;background:var(--off);opacity:.4;z-index:9997}
-
-    /* ANIMATIONS */
-    .cr{overflow:hidden;display:block}
-    .cr>*{display:block;transform:translateY(108%);transition:transform 1.1s cubic-bezier(0.16,1,0.3,1);transition-delay:var(--sd,0s)}
-    .cr.in>*{transform:translateY(0)}
-    .fu{opacity:0;transform:translateY(20px);transition:opacity .9s ease,transform .9s cubic-bezier(0.16,1,0.3,1);transition-delay:var(--sd,0s)}
-    .fu.in{opacity:1;transform:translateY(0)}
-
-    /* Section cinematic transitions */
-    .sec {
-      opacity: 0.85;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .sec.in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* NAV — sliding indicator */
-    nav{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;border-bottom:1px solid var(--border);background:rgba(0,0,0,.92);backdrop-filter:blur(24px);z-index:500;transition:transform .4s ease}
-    .n-mark{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--off)}
-    .n-links{display:flex;gap:28px;align-items:center;position:relative}
-    .n-indicator{position:absolute;bottom:-1px;height:1px;background:var(--off);transition:left .35s cubic-bezier(.16,1,.3,1),width .35s cubic-bezier(.16,1,.3,1);pointer-events:none}
-    .n-links a{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--off-3);transition:color .2s}
-    .n-links a.active{color:var(--off)}
-    .n-links a:hover{color:var(--off)}
-    .n-tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--off-3);padding-left:22px;border-left:1px solid var(--border)}
-    @media(max-width:700px){.n-tag{display:none}}
-
-    /* HERO */
-    #hero{min-height:100svh;padding:52px 5vw 0;display:grid;grid-template-rows:1fr auto;position:relative;overflow:hidden}
-    .hero-ghost{position:absolute;right:-1vw;bottom:-6vh;font-family:var(--mono);font-size:clamp(200px,36vw,500px);font-weight:300;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(240,235,226,.06);pointer-events:none;user-select:none;letter-spacing:-.05em;transition:opacity .5s}
-    .hero-body{display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:56px;padding-top:48px;position:relative;z-index:1}
-    @media(max-width:600px){.hero-body{justify-content:flex-start;padding-top:32px;padding-bottom:32px}}
-    .hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:36px}
-    @media(max-width:600px){.hero-eyebrow{margin-bottom:20px}}
-    .eyebrow-dash{width:22px;height:1px;background:var(--off-3)}
-    .eyebrow-text{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--off-3)}
-
-    /* Signature offset — more dramatic */
-    .hero-name{font-family:var(--serif);font-size:clamp(3.2rem,13vw,13rem);font-weight:400;line-height:.87;letter-spacing:-.025em;color:var(--off);margin-bottom:-6px}
-    .hero-name-it{font-family:var(--serif);font-size:clamp(3.2rem,13vw,13rem);font-weight:400;font-style:italic;line-height:.87;letter-spacing:-.025em;color:var(--off-2);margin-left:6vw;margin-bottom:28px}
-    @media(max-width:600px){.hero-name-it{margin-left:2vw}}
-
-    .hero-desc{font-size:14px;font-weight:300;color:var(--off-2);line-height:1.85;max-width:520px;margin-bottom:52px}
-    .hero-desc strong{color:var(--off);font-weight:500}
-    .hero-cta{display:flex;gap:12px;align-items:center}
-
-    .mag-btn{position:relative;display:inline-block;cursor:none;overflow:hidden}
-    .mag-btn-inner{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:14px 30px;transition:transform .25s ease,color .25s ease;position:relative;z-index:1}
-    .mag-btn:active .mag-btn-inner{transform:scale(.96) !important}
-    .btn-solid .mag-btn-inner{background:var(--off);color:var(--black)}
-    .btn-solid::before{content:'';position:absolute;inset:0;background:var(--off-3);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
-    .btn-solid:hover::before{transform:scaleX(1)}
-    .btn-solid:hover .mag-btn-inner{color:var(--off)}
-    .btn-outline .mag-btn-inner{background:transparent;color:var(--off-2);border:1px solid var(--border)}
-    .btn-outline::before{content:'';position:absolute;inset:0;background:var(--off);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
-    .btn-outline:hover::before{transform:scaleX(1)}
-    .btn-outline:hover .mag-btn-inner{color:var(--black)}
-
-    .hero-strip{border-top:1px solid var(--border);padding:20px 0;display:grid;grid-template-columns:repeat(4,1fr);position:relative;z-index:1}
-    .hs-cell{padding-right:32px;border-right:1px solid var(--border)}
-    .hs-cell:first-child{padding-left:0}
-    .hs-cell:last-child{border-right:none;padding-right:0;padding-left:32px}
-    .hs-label{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--off-3);margin-bottom:5px}
-    .hs-val{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--off)}
-    .hs-val.live::before{content:'';display:inline-block;width:5px;height:5px;background:#4ecb7a;border-radius:50%;margin-right:7px;vertical-align:middle;animation:blink 2.5s ease-in-out infinite}
-    @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-
-    #grain-canvas{position:fixed;inset:0;pointer-events:none;z-index:7000;opacity:.55;mix-blend-mode:screen}
-
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
-
-    /* SECTIONS */
-    .sec{padding:120px 5vw;border-top:1px solid var(--border)}
-    .sec-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:60px}
-    .sec-title{font-family:var(--mono);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--off-3)}
-    .sec-meta{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--off-3)}
-
-    /* PROJECTS */
-    .proj-list{border-top:1px solid var(--border)}
-    .proj-wrap{position:relative}
-    .proj-row{display:grid;grid-template-columns:52px 1fr 240px 100px 44px;align-items:center;gap:28px;padding:26px 0;border-bottom:1px solid var(--border);cursor:none;position:relative;overflow:hidden;transition:padding-left .45s cubic-bezier(.16,1,.3,1);text-decoration:none;color:inherit}
-    .proj-row::before{content:'';position:absolute;inset:0;background:var(--off);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1)}
-    .proj-row:hover::before{transform:scaleX(1)}
-    .proj-row:hover{padding-left:18px}
-    .proj-row>*{position:relative;z-index:1}
-    .proj-row:hover .p-idx,.proj-row:hover .p-name,.proj-row:hover .p-about,.proj-row:hover .p-status{color:var(--black) !important}
-    .proj-expand{background:none;border:1px solid var(--border);color:var(--off-3);font-family:var(--mono);font-size:16px;line-height:1;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:none;position:relative;z-index:2;transition:border-color .2s,color .2s,transform .35s cubic-bezier(.16,1,.3,1);flex-shrink:0}
-    .proj-row:hover .proj-expand{border-color:rgba(0,0,0,.3);color:var(--black)}
-    .proj-expand.open{transform:rotate(45deg)}
-    .proj-expand:focus{outline:none}
-    .proj-detail{max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.16,1,.3,1);border-bottom:1px solid var(--border);background:#050505}
-    .proj-detail.open{max-height:160px}
-    .proj-detail-inner{padding:28px 84px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px}
-    .pd-label{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--off-3);margin-bottom:6px}
-    .pd-val{font-family:var(--sans);font-size:13px;font-weight:300;color:var(--off-2);line-height:1.7}
-    .p-idx{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--off-3);transition:color .25s}
-    .p-name{font-family:var(--serif);font-size:clamp(1.5rem,2.6vw,2.4rem);font-weight:400;line-height:1;color:var(--off);transition:color .25s}
-    .p-about{font-family:var(--sans);font-size:12px;font-weight:300;color:var(--off-2);line-height:1.65;transition:color .25s}
-    .p-status{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;text-align:right;transition:color .25s}
-    .s-build{color:#4ecb7a} .s-deep{color:#d4a84b} .s-live{color:var(--off-2)}
-
-    #proj-preview{position:fixed;width:260px;aspect-ratio:16/10;pointer-events:none;z-index:600;opacity:0;transform:scale(.92) rotate(-1.5deg);transition:opacity .3s,transform .35s cubic-bezier(.16,1,.3,1);border:1px solid var(--border);overflow:hidden;border-radius:2px;background:#1a1a1a}
-    #proj-preview.show{opacity:1;transform:scale(1) rotate(0deg)}
-    #proj-preview img{width:100%;height:100%;object-fit:cover;filter:grayscale(20%)}
-    #proj-preview .pp-label{position:absolute;bottom:10px;left:12px;font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,235,226,.7);text-shadow:0 1px 2px rgba(0,0,0,.5)}
-
-    /* VENTURES */
-    #ventures{border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);padding:0 5vw}
-    .vc{padding:80px 60px 80px 0;border-right:1px solid var(--border)}
-    .vc:first-child{padding-left:0}
-    .vc:last-child{border-right:none;padding-left:60px;padding-right:0}
-    .vc-num{font-family:var(--serif);font-size:clamp(3rem,5.5vw,5rem);font-weight:400;font-style:italic;color:var(--off);line-height:1;margin-bottom:14px}
-    .vc-label{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--off-3);margin-bottom:8px}
-    .vc-desc{font-family:var(--sans);font-size:12px;font-weight:300;color:var(--off-2);line-height:1.75;max-width:260px}
-
-    /* MANIFESTO */
-    #manifesto{padding:120px 5vw;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-    .mf-label{font-family:var(--mono);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--off-3);margin-bottom:60px}
-    .mf-line{font-family:var(--serif);font-size:clamp(1.6rem,3.2vw,3rem);font-weight:400;line-height:1.1;color:var(--off);margin-bottom:.15em}
-    .mf-line em{font-style:italic;color:var(--off-2)}
-    .mf-right{padding-top:60px}
-    .mf-para{font-family:var(--sans);font-size:13px;font-weight:300;color:var(--off-2);line-height:2;max-width:420px;margin-bottom:1.6em}
-    .mf-para strong{color:var(--off);font-weight:500}
-    .mf-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:48px}
-    .mf-stat{background:var(--black);padding:28px 24px;transition:background .3s}
-    .mf-stat:hover{background:#080808}
-    .mf-stat-num{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;font-style:italic;color:var(--off);line-height:1;margin-bottom:8px}
-    .mf-stat-label{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--off-3)}
-
-    /* STACK — 3D tilt */
-    .stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);perspective:800px}
-    .sk{background:var(--black);padding:48px 36px;cursor:none;position:relative;overflow:hidden;transition:background .3s;transform-style:preserve-3d;will-change:transform}
-    .sk::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--off);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1)}
-    .sk:hover{background:#080808}
-    .sk:hover::after{transform:scaleX(1)}
-    .sk-layer{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--off-3);margin-bottom:16px}
-    .sk-name{font-family:var(--serif);font-size:1.85rem;font-weight:400;color:var(--off);line-height:1.1;margin-bottom:8px}
-    .sk-detail{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--off-3);line-height:1.8;margin-bottom:6px}
-    .sk-about{font-family:var(--sans);font-size:12px;font-weight:300;color:var(--off-2);line-height:1.7}
-
-    /* MOMENTS — combined transforms via custom properties */
-    .mgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}
-    .mo{overflow:hidden;background:#080808;position:relative;cursor:none}
-    .mo img{
-      width:110%;height:110%;object-fit:cover;display:block;margin:-5%;
-      filter:grayscale(30%) contrast(1.08) brightness(.85);
-      transition:filter .5s;
-      will-change:transform;
-      transform:translate(var(--tx,0), var(--ty,0)) skewY(var(--sk,0deg)) scaleY(var(--sy,1));
-    }
-    .mo:hover img{filter:grayscale(0%) contrast(1.05) brightness(.95)}
-    .mo::after{content:attr(data-cap);position:absolute;bottom:12px;left:14px;font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,235,226,.65);opacity:0;transform:translateY(5px);transition:opacity .3s,transform .3s;pointer-events:none}
-    .mo:hover::after{opacity:1;transform:translateY(0)}
-    .mo:nth-child(1){grid-column:span 7;aspect-ratio:16/10}
-    .mo:nth-child(2){grid-column:span 5;aspect-ratio:4/3}
-    .mo:nth-child(3){grid-column:span 4;aspect-ratio:4/5}
-    .mo:nth-child(4){grid-column:span 4;aspect-ratio:4/5}
-    .mo:nth-child(5){grid-column:span 4;aspect-ratio:4/5}
-    .mo:nth-child(6){grid-column:span 5;aspect-ratio:16/9}
-    .mo:nth-child(7){grid-column:span 7;aspect-ratio:16/9}
-    .mo-ph{width:100%;height:100%;min-height:180px;background:#080808;display:flex;align-items:flex-end;padding:14px;animation:ph-pulse 2.8s ease-in-out infinite}
-    @keyframes ph-pulse{0%,100%{background:#080808}50%{background:#0e0e0e}}
-    @media(prefers-reduced-motion:reduce){.mo-ph{animation:none}}
-    .mo-ph span{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#1e1e1e}
-
-    @media(hover:none){.mag-btn-inner{transform:none !important}.proj-row::before,.c-row::before,.c-email-row::before,.btn-outline::before,.btn-solid::before{transition:none}}
-
-    /* CONTACT */
-    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-    .contact-big{font-family:var(--serif);font-size:clamp(3rem,8vw,7.5rem);font-weight:400;line-height:.9;letter-spacing:-.02em;color:var(--off);margin-bottom:32px}
-    .contact-big em{font-style:italic;color:var(--off-2)}
-    .contact-note{font-family:var(--sans);font-size:13px;font-weight:300;color:var(--off-2);line-height:1.9;max-width:360px}
-    .c-email-row{display:flex;justify-content:space-between;align-items:center;padding:22px 26px;border:1px solid var(--border);margin-bottom:2px;cursor:none;position:relative;overflow:hidden;text-decoration:none;color:inherit}
-    .c-email-row::before{content:'';position:absolute;inset:0;background:var(--off);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
-    .c-email-row:hover::before{transform:scaleX(1)}
-    .c-email-row>*{position:relative;z-index:1}
-    .c-email-row:hover .ce-label,.c-email-row:hover .ce-val{color:var(--black)}
-    .ce-label{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--off-3);margin-bottom:5px;transition:color .25s}
-    .ce-val{font-family:var(--sans);font-size:14px;font-weight:400;color:var(--off);transition:color .25s}
-    .c-panel{border:1px solid var(--border);overflow:hidden}
-    .c-row{display:flex;justify-content:space-between;align-items:center;padding:20px 26px;border-bottom:1px solid var(--border);cursor:none;position:relative;overflow:hidden;transition:padding-left .35s;text-decoration:none;color:inherit}
-    .c-row::before{content:'';position:absolute;inset:0;background:var(--off);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
-    .c-row:hover::before{transform:scaleX(1)}
-    .c-row:hover{padding-left:34px}
-    .c-row>*{position:relative;z-index:1}
-    .c-row:hover .c-name,.c-row:hover .c-handle,.c-row:hover .c-arr{color:var(--black)}
-    .c-row:last-child{border-bottom:none}
-    .c-name{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--off);transition:color .25s}
-    .c-handle{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--off-3);transition:color .25s;margin-top:3px}
-    .c-arr{font-size:14px;color:var(--off-3);transition:color .25s,transform .25s}
-    .c-row:hover .c-arr{transform:translate(4px,-4px)}
-
-    footer{border-top:1px solid var(--border);padding:20px 5vw;display:flex;justify-content:space-between;align-items:center}
-    footer span{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--off-3)}
-
-    /* RESPONSIVE */
-    @media(max-width:1000px){
-      .proj-row{grid-template-columns:44px 1fr auto auto;gap:20px}
-      .p-about{display:none}
-      .stack-grid{grid-template-columns:1fr 1fr}
-      #ventures{grid-template-columns:1fr;padding:0 5vw}
-      .vc{padding:50px 0;border-right:none;border-bottom:1px solid var(--border)}
-      .vc:last-child{border-bottom:none}
-      .contact-grid{grid-template-columns:1fr;gap:48px}
-      .proj-detail-inner{grid-template-columns:1fr 1fr;padding:24px 64px}
-      #manifesto{grid-template-columns:1fr;gap:40px}
-      .mf-right{padding-top:0}
-    }
-    @media(max-width:600px){
-      .hero-strip{grid-template-columns:1fr 1fr}
-      .hs-cell{border-right:none;padding:0}
-      .hero-name,.hero-name-it{font-size:3.4rem}
-      .sec{padding:80px 5vw}
-      #manifesto{padding:80px 5vw}
-      .proj-row{grid-template-columns:1fr auto auto;gap:14px}
-      .p-idx{display:none}
-      .stack-grid{grid-template-columns:1fr}
-      .mgrid{grid-template-columns:1fr 1fr}
-      .mo{grid-column:span 1 !important;aspect-ratio:1 !important}
-      .contact-big{font-size:2.8rem}
-      footer{flex-direction:column;gap:6px;text-align:center}
-      .proj-detail-inner{grid-template-columns:1fr;padding:20px}
-      .mf-stats{grid-template-columns:1fr}
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="loading">
 
-<!-- Loader -->
-<div id="loader">
-  <div class="loader-text">Shahid Lone</div>
+<!-- LOADER -->
+<div id="loader" aria-hidden="true">
+  <div class="loader-name">Shahid Lone</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
   <div class="loader-sub">Systems Builder · Kashmir</div>
 </div>
 
+<!-- GLOBAL UI -->
 <canvas id="grain-canvas"></canvas>
 <div id="c-dot"></div>
 <div id="c-ring"></div>
 <div id="prog"></div>
 
+<!-- PROJECT HOVER PREVIEW -->
 <div id="proj-preview">
-  <img src="" alt="Project preview" id="pp-img" onerror="this.style.display='none';this.parentElement.style.background='#1a1a1a'">
+  <img src="" alt="Project preview" id="pp-img"
+       onerror="this.style.display='none';this.parentElement.style.background='#1a1a1a'">
   <span class="pp-label" id="pp-label"></span>
 </div>
 
+<!-- NAV -->
 <nav id="top-nav">
   <span class="n-mark">Shahid Lone</span>
   <div class="n-links" id="nav-links">
@@ -321,7 +51,7 @@
   <span class="n-tag">Kashmir · Building</span>
 </nav>
 
-<!-- HERO -->
+<!-- ═══ HERO ═══ -->
 <section id="hero">
   <div class="hero-ghost" id="ghost-num">01</div>
   <div class="hero-body">
@@ -340,104 +70,168 @@
     </p>
     <div class="hero-cta fu" style="--sd:.56s">
       <a href="#projects" class="mag-btn btn-solid"><span class="mag-btn-inner">See the work</span></a>
-      <a href="#contact" class="mag-btn btn-outline"><span class="mag-btn-inner">Get in touch</span></a>
+      <a href="#contact"  class="mag-btn btn-outline"><span class="mag-btn-inner">Get in touch</span></a>
     </div>
   </div>
   <div class="hero-strip fu" style="--sd:.7s">
-    <div class="hs-cell"><div class="hs-label">Status</div><div class="hs-val live">Building</div></div>
-    <div class="hs-cell"><div class="hs-label">Active ventures</div><div class="hs-val">05</div></div>
-    <div class="hs-cell"><div class="hs-label">Primary mission</div><div class="hs-val">Ghost</div></div>
-    <div class="hs-cell" style="text-align:right"><div class="hs-label">Node</div><div class="hs-val">Kulgam · J&K</div></div>
+    <div class="hs-cell">
+      <div class="hs-label">Status</div>
+      <div class="hs-val live">Building</div>
+    </div>
+    <div class="hs-cell">
+      <div class="hs-label">Active ventures</div>
+      <div class="hs-val">05</div>
+    </div>
+    <div class="hs-cell">
+      <div class="hs-label">Primary mission</div>
+      <div class="hs-val">Ghost</div>
+    </div>
+    <div class="hs-cell" style="text-align:right">
+      <div class="hs-label">Node</div>
+      <div class="hs-val">Kulgam · J&amp;K</div>
+    </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects" class="sec">
-  <div class="sec-head fu"><span class="sec-title">Work</span><span class="sec-meta">Five active builds</span></div>
+<!-- MARQUEE -->
+<div class="marquee-wrap sec-reveal">
+  <div class="marquee-track">
+    <span class="marquee-item">Building<span>·</span></span>
+    <span class="marquee-item">Kashmir<span>·</span></span>
+    <span class="marquee-item">Systems<span>·</span></span>
+    <span class="marquee-item">Full-Stack<span>·</span></span>
+    <span class="marquee-item">Machine Intelligence<span>·</span></span>
+    <span class="marquee-item">Infrastructure<span>·</span></span>
+    <span class="marquee-item">Ghost<span>·</span></span>
+    <span class="marquee-item">Bitez<span>·</span></span>
+    <span class="marquee-item">Building<span>·</span></span>
+    <span class="marquee-item">Kashmir<span>·</span></span>
+    <span class="marquee-item">Systems<span>·</span></span>
+    <span class="marquee-item">Full-Stack<span>·</span></span>
+    <span class="marquee-item">Machine Intelligence<span>·</span></span>
+    <span class="marquee-item">Infrastructure<span>·</span></span>
+    <span class="marquee-item">Ghost<span>·</span></span>
+    <span class="marquee-item">Bitez<span>·</span></span>
+  </div>
+</div>
+
+<!-- ═══ PROJECTS ═══ -->
+<section id="projects" class="sec sec-reveal">
+  <div class="sec-head fu">
+    <span class="sec-title">Work</span>
+    <span class="sec-meta">Five active builds</span>
+  </div>
   <div class="proj-list">
 
     <div class="proj-wrap">
       <a class="proj-row fu" href="#" data-preview="images/pic1.jpg" data-name="Bitez">
-        <span class="p-idx">01</span><span class="p-name">Bitez</span>
+        <span class="p-idx">01</span>
+        <span class="p-name">Bitez</span>
         <span class="p-about">Food delivery platform. User, partner, rider, admin — four apps, one system.</span>
         <span class="p-status s-build">Building</span>
-        <button class="proj-expand" aria-label="Details">+</button>
+        <button class="proj-expand" aria-label="Toggle Bitez details">+</button>
       </a>
-      <div class="proj-detail" id="detail-0"><div class="proj-detail-inner">
-        <div><div class="pd-label">Stack</div><div class="pd-val">React Native · Node.js · MongoDB</div></div>
-        <div><div class="pd-label">Role</div><div class="pd-val">Full-stack · 4 apps</div></div>
-        <div><div class="pd-label">Stage</div><div class="pd-val">MVP complete</div></div>
-      </div></div>
+      <div class="proj-detail" id="detail-0">
+        <div class="proj-detail-inner">
+          <div><div class="pd-label">Stack</div><div class="pd-val">React Native · Node.js · MongoDB</div></div>
+          <div><div class="pd-label">Role</div><div class="pd-val">Full-stack · 4 apps</div></div>
+          <div><div class="pd-label">Stage</div><div class="pd-val">MVP complete</div></div>
+        </div>
+      </div>
     </div>
 
     <div class="proj-wrap">
       <a class="proj-row fu" href="#" data-preview="images/pic2.jpg" data-name="Ghost">
-        <span class="p-idx">02</span><span class="p-name">Ghost</span>
+        <span class="p-idx">02</span>
+        <span class="p-name">Ghost</span>
         <span class="p-about">Hyper-optimised generative intelligence. The life's work.</span>
         <span class="p-status s-deep">Long game</span>
-        <button class="proj-expand" aria-label="Details">+</button>
+        <button class="proj-expand" aria-label="Toggle Ghost details">+</button>
       </a>
-      <div class="proj-detail" id="detail-1"><div class="proj-detail-inner">
-        <div><div class="pd-label">Stack</div><div class="pd-val">C++ · Python · PyTorch</div></div>
-        <div><div class="pd-label">Role</div><div class="pd-val">Solo research</div></div>
-        <div><div class="pd-label">Stage</div><div class="pd-val">Long game</div></div>
-      </div></div>
+      <div class="proj-detail" id="detail-1">
+        <div class="proj-detail-inner">
+          <div><div class="pd-label">Stack</div><div class="pd-val">C++ · Python · PyTorch</div></div>
+          <div><div class="pd-label">Role</div><div class="pd-val">Solo research</div></div>
+          <div><div class="pd-label">Stage</div><div class="pd-val">Long game</div></div>
+        </div>
+      </div>
     </div>
 
     <div class="proj-wrap">
       <a class="proj-row fu" href="#" data-preview="images/pic3.jpg" data-name="Forge">
-        <span class="p-idx">03</span><span class="p-name">Forge</span>
+        <span class="p-idx">03</span>
+        <span class="p-name">Forge</span>
         <span class="p-about">A social platform built on different rules.</span>
         <span class="p-status s-build">Building</span>
-        <button class="proj-expand" aria-label="Details">+</button>
+        <button class="proj-expand" aria-label="Toggle Forge details">+</button>
       </a>
-      <div class="proj-detail" id="detail-2"><div class="proj-detail-inner">
-        <div><div class="pd-label">Stack</div><div class="pd-val">React Native · Node.js</div></div>
-        <div><div class="pd-label">Role</div><div class="pd-val">Full-stack</div></div>
-        <div><div class="pd-label">Stage</div><div class="pd-val">Early build</div></div>
-      </div></div>
+      <div class="proj-detail" id="detail-2">
+        <div class="proj-detail-inner">
+          <div><div class="pd-label">Stack</div><div class="pd-val">React Native · Node.js</div></div>
+          <div><div class="pd-label">Role</div><div class="pd-val">Full-stack</div></div>
+          <div><div class="pd-label">Stage</div><div class="pd-val">Early build</div></div>
+        </div>
+      </div>
     </div>
 
     <div class="proj-wrap">
       <a class="proj-row fu" href="#" data-preview="images/pic4.jpg" data-name="Kashmir Export">
-        <span class="p-idx">04</span><span class="p-name">Kashmir Export</span>
+        <span class="p-idx">04</span>
+        <span class="p-name">Kashmir Export</span>
         <span class="p-about">Kashmiri farmers. Global markets. No middlemen.</span>
         <span class="p-status s-build">Building</span>
-        <button class="proj-expand" aria-label="Details">+</button>
+        <button class="proj-expand" aria-label="Toggle Kashmir Export details">+</button>
       </a>
-      <div class="proj-detail" id="detail-3"><div class="proj-detail-inner">
-        <div><div class="pd-label">Stack</div><div class="pd-val">Web · Logistics API</div></div>
-        <div><div class="pd-label">Role</div><div class="pd-val">Founder · Builder</div></div>
-        <div><div class="pd-label">Stage</div><div class="pd-val">Building</div></div>
-      </div></div>
+      <div class="proj-detail" id="detail-3">
+        <div class="proj-detail-inner">
+          <div><div class="pd-label">Stack</div><div class="pd-val">Web · Logistics API</div></div>
+          <div><div class="pd-label">Role</div><div class="pd-val">Founder · Builder</div></div>
+          <div><div class="pd-label">Stage</div><div class="pd-val">Building</div></div>
+        </div>
+      </div>
     </div>
 
     <div class="proj-wrap">
       <a class="proj-row fu" href="#" data-preview="images/pic5.jpg" data-name="Tone Classifier">
-        <span class="p-idx">05</span><span class="p-name">Tone Classifier</span>
+        <span class="p-idx">05</span>
+        <span class="p-name">Tone Classifier</span>
         <span class="p-about">DistilBERT model. Detects sarcasm relative to context.</span>
         <span class="p-status s-live">Live</span>
-        <button class="proj-expand" aria-label="Details">+</button>
+        <button class="proj-expand" aria-label="Toggle Tone Classifier details">+</button>
       </a>
-      <div class="proj-detail" id="detail-4"><div class="proj-detail-inner">
-        <div><div class="pd-label">Stack</div><div class="pd-val">Python · DistilBERT · HuggingFace</div></div>
-        <div><div class="pd-label">Role</div><div class="pd-val">ML Engineer</div></div>
-        <div><div class="pd-label">Stage</div><div class="pd-val">Live</div></div>
-      </div></div>
+      <div class="proj-detail" id="detail-4">
+        <div class="proj-detail-inner">
+          <div><div class="pd-label">Stack</div><div class="pd-val">Python · DistilBERT · HuggingFace</div></div>
+          <div><div class="pd-label">Role</div><div class="pd-val">ML Engineer</div></div>
+          <div><div class="pd-label">Stage</div><div class="pd-val">Live</div></div>
+        </div>
+      </div>
     </div>
 
   </div>
 </section>
 
-<!-- VENTURES -->
-<div id="ventures">
-  <div class="vc fu"><div class="vc-num">5</div><div class="vc-label">Concurrent builds</div><div class="vc-desc">Not side projects. Systems built to scale independently of each other.</div></div>
-  <div class="vc fu" style="--sd:.1s"><div class="vc-num">∞</div><div class="vc-label">Ghost timeline</div><div class="vc-desc">A lifelong project. The most ambitious thing on this page by a distance.</div></div>
-  <div class="vc fu" style="--sd:.22s"><div class="vc-num">1</div><div class="vc-label">Origin</div><div class="vc-desc">Kashmir. A valley the world underestimates. That's not a limitation — it's the story.</div></div>
+<!-- ═══ VENTURES ═══ -->
+<div id="ventures" class="sec-reveal">
+  <div class="vc fu">
+    <div class="vc-num">5</div>
+    <div class="vc-label">Concurrent builds</div>
+    <div class="vc-desc">Not side projects. Systems built to scale independently of each other.</div>
+  </div>
+  <div class="vc fu" style="--sd:.1s">
+    <div class="vc-num">∞</div>
+    <div class="vc-label">Ghost timeline</div>
+    <div class="vc-desc">A lifelong project. The most ambitious thing on this page by a distance.</div>
+  </div>
+  <div class="vc fu" style="--sd:.22s">
+    <div class="vc-num">1</div>
+    <div class="vc-label">Origin</div>
+    <div class="vc-desc">Kashmir. A valley the world underestimates. That's not a limitation — it's the story.</div>
+  </div>
 </div>
 
-<!-- MANIFESTO -->
-<section id="manifesto" class="sec">
+<!-- ═══ MANIFESTO ═══ -->
+<section id="manifesto" class="sec sec-reveal">
   <div class="fu">
     <div class="mf-label">Mindset</div>
     <div>
@@ -448,45 +242,114 @@
     </div>
   </div>
   <div class="mf-right fu" style="--sd:.2s">
-    <p class="mf-para"><strong>Kashmir will not stay underestimated forever.</strong><br>Every system I build is proof that geography is not destiny. The work is the argument.</p>
-    <p class="mf-para">I don't ship features. I build infrastructure that earns trust at scale — the kind that still works when no one is watching.</p>
+    <p class="mf-para">
+      <strong>Kashmir will not stay underestimated forever.</strong><br>
+      Every system I build is proof that geography is not destiny. The work is the argument.
+    </p>
+    <p class="mf-para">
+      I don't ship features. I build infrastructure that earns trust at scale —
+      the kind that still works when no one is watching.
+    </p>
     <div class="mf-stats">
-      <div class="mf-stat fu" style="--sd:.3s"><div class="mf-stat-num">4</div><div class="mf-stat-label">Apps deployed</div></div>
-      <div class="mf-stat fu" style="--sd:.4s"><div class="mf-stat-num">3</div><div class="mf-stat-label">ML models trained</div></div>
-      <div class="mf-stat fu" style="--sd:.5s"><div class="mf-stat-num">5</div><div class="mf-stat-label">Systems in parallel</div></div>
+      <div class="mf-stat fu" style="--sd:.3s">
+        <div class="mf-stat-num" data-target="4">0</div>
+        <div class="mf-stat-label">Apps deployed</div>
+      </div>
+      <div class="mf-stat fu" style="--sd:.4s">
+        <div class="mf-stat-num" data-target="3">0</div>
+        <div class="mf-stat-label">ML models trained</div>
+      </div>
+      <div class="mf-stat fu" style="--sd:.5s">
+        <div class="mf-stat-num" data-target="5">0</div>
+        <div class="mf-stat-label">Systems in parallel</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- STACK -->
-<section id="stack" class="sec">
+<!-- ═══ STACK ═══ -->
+<section id="stack" class="sec sec-reveal">
   <div class="sec-head fu"><span class="sec-title">Stack</span></div>
   <div class="stack-grid fu" style="--sd:.1s">
-    <div class="sk"><div class="sk-layer">Systems Layer</div><div class="sk-name">C / C++</div><div class="sk-detail">Memory · Performance · Low-level</div><div class="sk-about">Fundamentals first. Everything else is built on this.</div></div>
-    <div class="sk"><div class="sk-layer">Intelligence Layer</div><div class="sk-name">Python · ML</div><div class="sk-detail">PyTorch · HuggingFace · Transformers</div><div class="sk-about">NLP, classification, model training.</div></div>
-    <div class="sk"><div class="sk-layer">Backend Layer</div><div class="sk-name">Node.js</div><div class="sk-detail">Express · MongoDB · Socket.io · JWT</div><div class="sk-about">Full API architecture. Real-time systems.</div></div>
-    <div class="sk"><div class="sk-layer">Foundations</div><div class="sk-name">DSA</div><div class="sk-detail">Algorithms · Data structures · Complexity</div><div class="sk-about">Competitive thinking. Problem decomposition.</div></div>
-    <div class="sk"><div class="sk-layer">Environment</div><div class="sk-name">Linux</div><div class="sk-detail">Bash · Git · CLI-first workflow</div><div class="sk-about">Terminal-native. OS-level understanding.</div></div>
-    <div class="sk"><div class="sk-layer">Interface Layer</div><div class="sk-name">React Native</div><div class="sk-detail">Expo · Cross-platform · Mobile-first</div><div class="sk-about">Building for the hand, not the desk.</div></div>
+    <div class="sk">
+      <div class="sk-layer">Systems Layer</div>
+      <div class="sk-name">C / C++</div>
+      <div class="sk-detail">Memory · Performance · Low-level</div>
+      <div class="sk-about">Fundamentals first. Everything else is built on this.</div>
+    </div>
+    <div class="sk">
+      <div class="sk-layer">Intelligence Layer</div>
+      <div class="sk-name">Python · ML</div>
+      <div class="sk-detail">PyTorch · HuggingFace · Transformers</div>
+      <div class="sk-about">NLP, classification, model training.</div>
+    </div>
+    <div class="sk">
+      <div class="sk-layer">Backend Layer</div>
+      <div class="sk-name">Node.js</div>
+      <div class="sk-detail">Express · MongoDB · Socket.io · JWT</div>
+      <div class="sk-about">Full API architecture. Real-time systems.</div>
+    </div>
+    <div class="sk">
+      <div class="sk-layer">Foundations</div>
+      <div class="sk-name">DSA</div>
+      <div class="sk-detail">Algorithms · Data structures · Complexity</div>
+      <div class="sk-about">Competitive thinking. Problem decomposition.</div>
+    </div>
+    <div class="sk">
+      <div class="sk-layer">Environment</div>
+      <div class="sk-name">Linux</div>
+      <div class="sk-detail">Bash · Git · CLI-first workflow</div>
+      <div class="sk-about">Terminal-native. OS-level understanding.</div>
+    </div>
+    <div class="sk">
+      <div class="sk-layer">Interface Layer</div>
+      <div class="sk-name">React Native</div>
+      <div class="sk-detail">Expo · Cross-platform · Mobile-first</div>
+      <div class="sk-about">Building for the hand, not the desk.</div>
+    </div>
   </div>
 </section>
 
-<!-- MOMENTS -->
-<section id="moments" class="sec">
-  <div class="sec-head fu"><span class="sec-title">Life</span><span class="sec-meta">Beyond the screen</span></div>
+<!-- ═══ MOMENTS ═══ -->
+<section id="moments" class="sec sec-reveal">
+  <div class="sec-head fu">
+    <span class="sec-title">Life</span>
+    <span class="sec-meta">Beyond the screen</span>
+  </div>
   <div class="mgrid fu" style="--sd:.1s">
-    <div class="mo" data-cap="Kashmir"><img loading="eager" decoding="async" src="images/pic1.jpg" alt="Kashmir landscape" onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Kashmir</span></div>'"></div>
-    <div class="mo" data-cap="Late nights"><img loading="lazy" decoding="async" src="images/pic2.jpg" alt="Late night coding" onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Late nights</span></div>'"></div>
-    <div class="mo" data-cap="Training"><img loading="lazy" decoding="async" src="images/pic3.jpg" alt="Training ML models" onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Training</span></div>'"></div>
-    <div class="mo" data-cap="Code"><img loading="lazy" decoding="async" src="images/pic4.jpg" alt="Writing code" onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Code</span></div>'"></div>
-    <div class="mo" data-cap="Valley mornings"><img loading="lazy" decoding="async" src="images/pic5.jpg" alt="Morning in Kashmir valley" onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Valley mornings</span></div>'"></div>
-    <div class="mo" data-cap="Momentum"><img loading="lazy" decoding="async" src="images/pic6.jpg" alt="Momentum" onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Momentum</span></div>'"></div>
-    <div class="mo" data-cap="Origin"><img loading="lazy" decoding="async" src="images/pic7.jpg" alt="Origin" onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Origin</span></div>'"></div>
+    <div class="mo" data-cap="Kashmir">
+      <img loading="eager" decoding="async" src="images/pic1.jpg" alt="Kashmir landscape"
+           onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Kashmir</span></div>'">
+    </div>
+    <div class="mo" data-cap="Late nights">
+      <img loading="lazy" decoding="async" src="images/pic2.jpg" alt="Late night coding"
+           onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Late nights</span></div>'">
+    </div>
+    <div class="mo" data-cap="Training">
+      <img loading="lazy" decoding="async" src="images/pic3.jpg" alt="Training ML models"
+           onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Training</span></div>'">
+    </div>
+    <div class="mo" data-cap="Code">
+      <img loading="lazy" decoding="async" src="images/pic4.jpg" alt="Writing code"
+           onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Code</span></div>'">
+    </div>
+    <div class="mo" data-cap="Valley mornings">
+      <img loading="lazy" decoding="async" src="images/pic5.jpg" alt="Morning in Kashmir valley"
+           onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Valley mornings</span></div>'">
+    </div>
+    <div class="mo" data-cap="Momentum">
+      <img loading="lazy" decoding="async" src="images/pic6.jpg" alt="Momentum"
+           onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Momentum</span></div>'">
+    </div>
+    <div class="mo" data-cap="Origin">
+      <img loading="lazy" decoding="async" src="images/pic7.jpg" alt="Origin"
+           onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Origin</span></div>'">
+    </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="sec">
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" class="sec sec-reveal">
   <div class="sec-head fu"><span class="sec-title">Contact</span></div>
   <div class="contact-grid">
     <div class="fu" style="--sd:.1s">
@@ -494,17 +357,33 @@
         <div class="cr"><span>Let's</span></div>
         <div class="cr" style="--sd:.12s"><span><em>build.</em></span></div>
       </h2>
-      <p class="contact-note">Open to serious collaborations,<br>partnerships, and conversations<br>worth having.</p>
+      <p class="contact-note">
+        Open to serious collaborations,<br>
+        partnerships, and conversations<br>
+        worth having.
+      </p>
     </div>
     <div class="fu" style="--sd:.22s">
       <a href="mailto:shahid180505@gmail.com" class="c-email-row">
-        <div><div class="ce-label">Email</div><div class="ce-val">shahid180505@gmail.com</div></div>
+        <div>
+          <div class="ce-label">Email</div>
+          <div class="ce-val">shahid180505@gmail.com</div>
+        </div>
         <span style="color:var(--off-3);font-size:14px;transition:color .25s">↗</span>
       </a>
       <div class="c-panel">
-        <a href="https://linkedin.com/in/shahid1855" target="_blank" rel="noopener" class="c-row"><div><div class="c-name">LinkedIn</div><div class="c-handle">shahid-lone</div></div><span class="c-arr">↗</span></a>
-        <a href="https://github.com/ghost-hub-champ" target="_blank" rel="noopener" class="c-row"><div><div class="c-name">GitHub</div><div class="c-handle">ghost-hub-champ</div></div><span class="c-arr">↗</span></a>
-        <a href="https://instagram.com/shahiiiid.lone" target="_blank" rel="noopener" class="c-row"><div><div class="c-name">Instagram</div><div class="c-handle">shahiiiid.lone</div></div><span class="c-arr">↗</span></a>
+        <a href="https://linkedin.com/in/shahid1855" target="_blank" rel="noopener" class="c-row">
+          <div><div class="c-name">LinkedIn</div><div class="c-handle">shahid1855</div></div>
+          <span class="c-arr">↗</span>
+        </a>
+        <a href="https://github.com/ghost-hub-champ" target="_blank" rel="noopener" class="c-row">
+          <div><div class="c-name">GitHub</div><div class="c-handle">ghost-hub-champ</div></div>
+          <span class="c-arr">↗</span>
+        </a>
+        <a href="https://instagram.com/shahiiiid.lone" target="_blank" rel="noopener" class="c-row">
+          <div><div class="c-name">Instagram</div><div class="c-handle">shahiiiid.lone</div></div>
+          <span class="c-arr">↗</span>
+        </a>
       </div>
     </div>
   </div>
@@ -516,221 +395,6 @@
   <span id="f-year"></span>
 </footer>
 
-<script>
-// Fade out loader and remove from DOM, unlock scrolling
-window.addEventListener('load', function() {
-  const loader = document.getElementById('loader');
-  const body = document.body;
-  setTimeout(() => {
-    loader.classList.add('fade-out');
-    setTimeout(() => {
-      loader.remove();
-      body.classList.remove('loading');
-    }, 800);
-  }, 500);
-});
-
-/* 1. HERO REVEAL */
-(function(){
-  function go(){ requestAnimationFrame(()=>{ document.querySelectorAll('#hero .fu,#hero .cr').forEach(el=>el.classList.add('in')); }); }
-  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go):go();
-})();
-
-/* 2. SCROLL REVEAL (also toggles .in on sections) */
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ 
-    if(e.isIntersecting){
-      e.target.classList.add('in');
-      io.unobserve(e.target);
-    }
-  });
-},{threshold:0.01,rootMargin:'10% 0px'});
-document.querySelectorAll('.fu,.cr').forEach(el=>io.observe(el));
-
-// Also observe sections for cinematic transition
-const sectionIO = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('in');
-      sectionIO.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.2, rootMargin: '0px' });
-document.querySelectorAll('.sec').forEach(s => sectionIO.observe(s));
-
-/* 3. ACTIVE NAV + SLIDING INDICATOR + GHOST NUMBER */
-const navLinksEl=document.getElementById('nav-links');
-const navInd=document.getElementById('nav-ind');
-const navLinks=document.querySelectorAll('.n-links a[data-section]');
-const ghostNum=document.getElementById('ghost-num');
-const sectionNums={hero:'01',projects:'02',manifesto:'03',stack:'04',moments:'05',contact:'06'};
-
-function moveInd(link){
-  if(!link) return;
-  const lr=link.getBoundingClientRect(), pr=navLinksEl.getBoundingClientRect();
-  navInd.style.left=(lr.left-pr.left)+'px';
-  navInd.style.width=lr.width+'px';
-}
-
-const secIO=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const id=e.target.id;
-      navLinks.forEach(a=>{ const on=a.dataset.section===id; a.classList.toggle('active',on); if(on) moveInd(a); });
-      if(sectionNums[id]) ghostNum.textContent=sectionNums[id];
-    }
-  });
-},{threshold:0.3});
-document.querySelectorAll('section[id]').forEach(s=>secIO.observe(s));
-
-setTimeout(()=>{
-  moveInd(document.querySelector('.n-links a.active')||navLinks[0]);
-},50);
-
-/* 4. WEBGL GRAIN — optimised with resize fix */
-(function(){
-  const c=document.getElementById('grain-canvas');
-  const gl=c.getContext('webgl')||c.getContext('experimental-webgl');
-  if(!gl){c.remove();return;}
-  const r=()=>{c.width=innerWidth;c.height=innerHeight;gl.viewport(0,0,c.width,c.height)};
-  r();window.addEventListener('resize',()=>{
-    r();
-    gl.uniform2f(us, c.width, c.height);
-  });
-  const vs=gl.createShader(gl.VERTEX_SHADER);
-  gl.shaderSource(vs,'attribute vec2 a;void main(){gl_Position=vec4(a,0,1);}');gl.compileShader(vs);
-  const fs=gl.createShader(gl.FRAGMENT_SHADER);
-  gl.shaderSource(fs,'precision mediump float;uniform float t;uniform vec2 s;float h(vec2 p){p=fract(p*vec2(234.34,435.345));p+=dot(p,p+34.23);return fract(p.x*p.y);}void main(){vec2 uv=gl_FragCoord.xy/s;float g=h(uv+fract(t*.07));gl_FragColor=vec4(g*.06,g*.06,g*.06,g*.18);}');
-  gl.compileShader(fs);
-  const p=gl.createProgram();gl.attachShader(p,vs);gl.attachShader(p,fs);gl.linkProgram(p);gl.useProgram(p);
-  const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
-  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
-  const ap=gl.getAttribLocation(p,'a');gl.enableVertexAttribArray(ap);gl.vertexAttribPointer(ap,2,gl.FLOAT,false,0,0);
-  const ut=gl.getUniformLocation(p,'t'),us=gl.getUniformLocation(p,'s');
-  gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
-  let i=0;
-  setInterval(()=>{
-    i++;
-    gl.uniform1f(ut,i);
-    gl.uniform2f(us,c.width,c.height);
-    gl.drawArrays(gl.TRIANGLES,0,6);
-  },33);
-})();
-
-/* 5. SCROLL VELOCITY DISTORTION */
-(function(){
-  let last=scrollY,vel=0,run=false;
-  const imgs=document.querySelectorAll('.mo img');
-  const damps=Array.from(imgs).map((_,i)=>0.14+(i%3)*.035);
-  function loop(){
-    const cur=scrollY,raw=cur-last;last=cur;vel+=(raw-vel)*.22;
-    const c=Math.max(-18,Math.min(18,vel));
-    imgs.forEach((img,i)=>{
-      img.style.setProperty('--sk', (c*damps[i])+'deg');
-      img.style.setProperty('--sy', (1+Math.abs(c)*.003)+'');
-    });
-    if(Math.abs(vel)<.05){imgs.forEach(img=>{img.style.setProperty('--sk','0deg');img.style.setProperty('--sy','1');});run=false;return;}
-    requestAnimationFrame(loop);
-  }
-  window.addEventListener('scroll',()=>{if(!run){run=true;loop();}},{passive:true});
-})();
-
-/* 6. CURSOR */
-const dot=document.getElementById('c-dot'),ring=document.getElementById('c-ring');
-let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
-dot.style.left=mx+'px';dot.style.top=my+'px';
-ring.style.left=rx+'px';ring.style.top=ry+'px';
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-(function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-
-document.addEventListener('mouseover',e=>{
-  if(e.target.closest('a, .sk, .mo, .mag-btn, .proj-expand')){
-    dot.style.width='14px';dot.style.height='14px';ring.style.width='50px';ring.style.height='50px';
-  }
-});
-document.addEventListener('mouseout',e=>{
-  if(e.target.closest('a, .sk, .mo, .mag-btn, .proj-expand')){
-    dot.style.width='6px';dot.style.height='6px';ring.style.width='30px';ring.style.height='30px';
-  }
-});
-
-/* 7. MAGNETIC BUTTONS */
-document.querySelectorAll('.mag-btn').forEach(btn=>{
-  const inner=btn.querySelector('.mag-btn-inner');let raf;
-  btn.addEventListener('mousemove',e=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{const r=btn.getBoundingClientRect();inner.style.transform=`translate(${(e.clientX-(r.left+r.width/2))*.28}px,${(e.clientY-(r.top+r.height/2))*.28}px)`;});});
-  btn.addEventListener('mouseleave',()=>{inner.style.transform='translate(0,0)';});
-});
-
-/* 8. SCROLL PROGRESS */
-const prog=document.getElementById('prog');
-window.addEventListener('scroll',()=>{prog.style.width=(scrollY/(document.documentElement.scrollHeight-innerHeight)*100)+'%';},{passive:true});
-
-/* 9. NAV HIDE */
-let lastY=0;const topNav=document.getElementById('top-nav');
-window.addEventListener('scroll',()=>{const y=scrollY;topNav.style.transform=(y>70&&y>lastY)?'translateY(-110%)':'translateY(0)';lastY=y;},{passive:true});
-
-/* 10. GHOST PARALLAX */
-const ghost=document.querySelector('.hero-ghost');
-let gx=0,gy=0,gp=false;
-document.addEventListener('mousemove',e=>{gx=(e.clientX/innerWidth-.5)*38;gy=(e.clientY/innerHeight-.5)*38;if(!gp){gp=true;requestAnimationFrame(()=>{ghost.style.transform=`translate(${gx}px,${gy}px)`;gp=false;});}});
-
-/* 11. PROJECT PREVIEW + EXPAND BUTTON */
-const preview=document.getElementById('proj-preview'),ppImg=document.getElementById('pp-img'),ppLabel=document.getElementById('pp-label');
-document.querySelectorAll('.proj-row').forEach(row=>{
-  row.addEventListener('mouseenter',()=>{const src=row.dataset.preview;ppImg.src=src||'';ppImg.style.display=src?'block':'none';ppLabel.textContent=row.dataset.name||'';preview.classList.add('show');});
-  row.addEventListener('mouseleave',()=>preview.classList.remove('show'));
-  row.addEventListener('mousemove',e=>{preview.style.left=Math.min(e.clientX+28,innerWidth-preview.offsetWidth-20)+'px';preview.style.top=Math.max(20,Math.min(e.clientY-80,innerHeight-preview.offsetHeight-20))+'px';});
-});
-document.querySelectorAll('.proj-expand').forEach((btn,i)=>{
-  btn.addEventListener('click',e=>{
-    e.preventDefault();e.stopPropagation();
-    const detail=document.getElementById('detail-'+i);if(!detail)return;
-    const open=detail.classList.contains('open');
-    if(!open){
-      document.querySelectorAll('.proj-detail.open').forEach(d=>d.classList.remove('open'));
-      document.querySelectorAll('.proj-expand.open').forEach(b=>b.classList.remove('open'));
-      detail.classList.add('open');
-      btn.classList.add('open');
-    } else {
-      detail.classList.remove('open');
-      btn.classList.remove('open');
-    }
-  });
-});
-
-/* 12. 3D TILT — STACK CARDS */
-document.querySelectorAll('.sk').forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect();
-    const rx=((e.clientY-r.top)/r.height-.5)*12;
-    const ry=((e.clientX-r.left)/r.width-.5)*-12;
-    card.style.transform=`perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
-  });
-  card.addEventListener('mouseleave',()=>{card.style.transform='';});
-});
-
-/* 13. MOMENTS MOUSE PARALLAX */
-const moImgs=document.querySelectorAll('.mo img');
-const depths=[8,6,10,7,9,6,8];
-let pRaf=false,pmx=0,pmy=0;
-document.addEventListener('mousemove',e=>{
-  pmx=e.clientX;pmy=e.clientY;
-  if(!pRaf){pRaf=true;requestAnimationFrame(()=>{
-    moImgs.forEach((img,i)=>{const x=(pmx/innerWidth-.5)*depths[i],y=(pmy/innerHeight-.5)*depths[i];
-      img.style.setProperty('--tx', x+'px');
-      img.style.setProperty('--ty', y+'px');
-    });
-    pRaf=false;
-  });}
-});
-
-/* 14. CLOCK */
-const ft=document.getElementById('f-time');
-function tick(){ft.textContent=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kolkata',hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(new Date())+' SXR';}
-setInterval(tick,1000);tick();
-
-/* 15. FOOTER YEAR */
-document.getElementById('f-year').textContent=`Engineering from Kashmir · ${new Date().getFullYear()}`;
-</script>
+<script src="main.js"></script>
 </body>
 </html>
