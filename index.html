@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shahid Lone</title>
+  <title>Shahid Lone — Systems Builder</title>
   <meta property="og:title"       content="Shahid Lone — Systems Builder">
   <meta property="og:description" content="Five systems. One builder. Kashmir.">
   <meta property="og:image"       content="/preview.jpg">
@@ -36,9 +36,27 @@
   <span class="pp-label" id="pp-label"></span>
 </div>
 
-<!-- NAV -->
+<!-- MOBILE NAV OVERLAY -->
+<div id="mobile-nav" role="dialog" aria-modal="true" aria-label="Navigation">
+  <nav class="mobile-nav-links">
+    <a href="#hero"      class="mobile-nav-link" style="--sd:.08s">Home      <em>01</em></a>
+    <a href="#projects"  class="mobile-nav-link" style="--sd:.16s">Work      <em>02</em></a>
+    <a href="#manifesto" class="mobile-nav-link" style="--sd:.24s">Mindset   <em>03</em></a>
+    <a href="#stack"     class="mobile-nav-link" style="--sd:.32s">Stack     <em>04</em></a>
+    <a href="#moments"   class="mobile-nav-link" style="--sd:.40s">Life      <em>05</em></a>
+    <a href="#contact"   class="mobile-nav-link" style="--sd:.48s">Contact   <em>06</em></a>
+  </nav>
+  <div class="mobile-nav-footer">
+    <a href="https://github.com/ghost-hub-champ"  target="_blank" rel="noopener">GitHub</a>
+    <a href="https://linkedin.com/in/shahid1855"  target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://instagram.com/shahiiiid.lone" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</div>
+
+<!-- DESKTOP NAV + HAMBURGER -->
 <nav id="top-nav">
   <span class="n-mark">Shahid Lone</span>
+  <!-- Desktop links -->
   <div class="n-links" id="nav-links">
     <span class="n-indicator" id="nav-ind"></span>
     <a href="#hero"      data-section="hero">Home</a>
@@ -49,6 +67,12 @@
     <a href="#contact"   data-section="contact">Contact</a>
   </div>
   <span class="n-tag">Kashmir · Building</span>
+  <!-- Hamburger — mobile only -->
+  <button id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
 <!-- ═══ HERO ═══ -->
