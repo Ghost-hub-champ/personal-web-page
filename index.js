@@ -193,19 +193,21 @@ document.addEventListener('mouseout', e => {
   }
 });
 
-/* ─── 9. MAGNETIC BUTTONS ─── */
-document.querySelectorAll('.mag-btn').forEach(btn => {
-  const inner = btn.querySelector('.mag-btn-inner');
-  let raf;
-  btn.addEventListener('mousemove', e => {
-    cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => {
-      const r = btn.getBoundingClientRect();
-      inner.style.transform = `translate(${(e.clientX - (r.left + r.width / 2)) * 0.28}px, ${(e.clientY - (r.top + r.height / 2)) * 0.28}px)`;
+/* ─── 9. MAGNETIC BUTTONS — mouse only ─── */
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  document.querySelectorAll('.mag-btn').forEach(btn => {
+    const inner = btn.querySelector('.mag-btn-inner');
+    let raf;
+    btn.addEventListener('mousemove', e => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const r = btn.getBoundingClientRect();
+        inner.style.transform = `translate(${(e.clientX - (r.left + r.width / 2)) * 0.28}px, ${(e.clientY - (r.top + r.height / 2)) * 0.28}px)`;
+      });
     });
+    btn.addEventListener('mouseleave', () => { inner.style.transform = 'translate(0,0)'; });
   });
-  btn.addEventListener('mouseleave', () => { inner.style.transform = 'translate(0,0)'; });
-});
+}
 
 /* ─── 10. SCROLL PROGRESS ─── */
 const prog = document.getElementById('prog');
@@ -213,10 +215,12 @@ window.addEventListener('scroll', () => {
   prog.style.width = (scrollY / (document.documentElement.scrollHeight - innerHeight) * 100) + '%';
 }, { passive: true });
 
-/* ─── 11. NAV HIDE — instant up, delayed down ─── */
+/* ─── 11. NAV HIDE — instant up, delayed down, skip when overlay open ─── */
 let lastY = 0, navHideTimer = null;
 const topNav = document.getElementById('top-nav');
 window.addEventListener('scroll', () => {
+  // Don't hide/show while mobile nav overlay is open
+  if (document.body.classList.contains('nav-open')) return;
   const y = scrollY;
   if (y < lastY || y < 70) {
     clearTimeout(navHideTimer);
@@ -228,41 +232,48 @@ window.addEventListener('scroll', () => {
   lastY = y;
 }, { passive: true });
 
-/* ─── 12. GHOST PARALLAX ─── */
+/* ─── 12. GHOST PARALLAX — mouse only ─── */
 const ghost = document.querySelector('.hero-ghost');
 let gx = 0, gy = 0, gp = false;
-document.addEventListener('mousemove', e => {
-  gx = (e.clientX / innerWidth  - 0.5) * 38;
-  gy = (e.clientY / innerHeight - 0.5) * 38;
-  if (!gp) {
-    gp = true;
-    requestAnimationFrame(() => {
-      ghost.style.transform = `translate(${gx}px, ${gy}px)`;
-      gp = false;
-    });
-  }
-});
+if (window.matchMedia('(hover: hover)').matches) {
+  document.addEventListener('mousemove', e => {
+    gx = (e.clientX / innerWidth  - 0.5) * 38;
+    gy = (e.clientY / innerHeight - 0.5) * 38;
+    if (!gp) {
+      gp = true;
+      requestAnimationFrame(() => {
+        ghost.style.transform = `translate(${gx}px, ${gy}px)`;
+        gp = false;
+      });
+    }
+  });
+}
 
 /* ─── 13. PROJECT PREVIEW + EXPAND ─── */
 const preview = document.getElementById('proj-preview');
 const ppImg   = document.getElementById('pp-img');
 const ppLabel = document.getElementById('pp-label');
 
-document.querySelectorAll('.proj-row').forEach(row => {
-  row.addEventListener('mouseenter', () => {
-    const src = row.dataset.preview;
-    ppImg.src = src || '';
-    ppImg.style.display = src ? 'block' : 'none';
-    ppLabel.textContent = row.dataset.name || '';
-    preview.classList.add('show');
+// Hover preview — mouse-only devices only
+const isHoverDevice = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+if (isHoverDevice && preview) {
+  document.querySelectorAll('.proj-row').forEach(row => {
+    row.addEventListener('mouseenter', () => {
+      const src = row.dataset.preview;
+      ppImg.src = src || '';
+      ppImg.style.display = src ? 'block' : 'none';
+      ppLabel.textContent = row.dataset.name || '';
+      preview.classList.add('show');
+    });
+    row.addEventListener('mouseleave', () => preview.classList.remove('show'));
+    row.addEventListener('mousemove', e => {
+      preview.style.left = Math.min(e.clientX + 28, innerWidth  - preview.offsetWidth  - 20) + 'px';
+      preview.style.top  = Math.max(20, Math.min(e.clientY - 80, innerHeight - preview.offsetHeight - 20)) + 'px';
+    });
   });
-  row.addEventListener('mouseleave', () => preview.classList.remove('show'));
-  row.addEventListener('mousemove', e => {
-    preview.style.left = Math.min(e.clientX + 28, innerWidth  - preview.offsetWidth  - 20) + 'px';
-    preview.style.top  = Math.max(20, Math.min(e.clientY - 80, innerHeight - preview.offsetHeight - 20)) + 'px';
-  });
-});
+}
 
+// Expand/collapse — works on both touch and mouse
 document.querySelectorAll('.proj-expand').forEach((btn, i) => {
   btn.addEventListener('click', e => {
     e.preventDefault(); e.stopPropagation();
@@ -271,16 +282,22 @@ document.querySelectorAll('.proj-expand').forEach((btn, i) => {
     if (!detail) return;
     const isOpen = detail.classList.contains('open');
 
-    // Close all open panels first
+    // Close all
     document.querySelectorAll('.proj-detail.open').forEach(d => d.classList.remove('open'));
     document.querySelectorAll('.proj-expand.open').forEach(b => b.classList.remove('open'));
     document.querySelectorAll('.proj-row.detail-open').forEach(r => r.classList.remove('detail-open'));
 
-    // Then open the clicked one (if it wasn't already open)
+    // Open this one if it was closed
     if (!isOpen) {
       detail.classList.add('open');
       btn.classList.add('open');
       if (row) row.classList.add('detail-open');
+      // On mobile, scroll the row into view after the panel opens
+      if (!isHoverDevice) {
+        setTimeout(() => {
+          row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 60);
+      }
     }
   });
 });
@@ -294,35 +311,38 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* ─── 14. 3D TILT — STACK CARDS ─── */
-document.querySelectorAll('.sk').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r  = card.getBoundingClientRect();
-    const rx = ((e.clientY - r.top)  / r.height - 0.5) * 12;
-    const ry = ((e.clientX - r.left) / r.width  - 0.5) * -12;
-    card.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
-  });
-  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-});
-
-/* ─── 15. MOMENTS MOUSE PARALLAX ─── */
-const moImgs = document.querySelectorAll('.mo img');
-const depths = [8, 6, 10, 7, 9, 6, 8];
-let pRaf = false, pmx = 0, pmy = 0;
-
-document.addEventListener('mousemove', e => {
-  pmx = e.clientX; pmy = e.clientY;
-  if (!pRaf) {
-    pRaf = true;
-    requestAnimationFrame(() => {
-      moImgs.forEach((img, i) => {
-        img.style.setProperty('--tx', (pmx / innerWidth  - 0.5) * depths[i] + 'px');
-        img.style.setProperty('--ty', (pmy / innerHeight - 0.5) * depths[i] + 'px');
-      });
-      pRaf = false;
+/* ─── 14. 3D TILT — STACK CARDS — mouse only ─── */
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  document.querySelectorAll('.sk').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r  = card.getBoundingClientRect();
+      const rx = ((e.clientY - r.top)  / r.height - 0.5) * 12;
+      const ry = ((e.clientX - r.left) / r.width  - 0.5) * -12;
+      card.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
     });
-  }
-});
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+}
+
+/* ─── 15. MOMENTS MOUSE PARALLAX — mouse only ─── */
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  const moImgs = document.querySelectorAll('.mo img');
+  const depths = [8, 6, 10, 7, 9, 6, 8];
+  let pRaf = false, pmx = 0, pmy = 0;
+  document.addEventListener('mousemove', e => {
+    pmx = e.clientX; pmy = e.clientY;
+    if (!pRaf) {
+      pRaf = true;
+      requestAnimationFrame(() => {
+        moImgs.forEach((img, i) => {
+          img.style.setProperty('--tx', (pmx / innerWidth  - 0.5) * depths[i] + 'px');
+          img.style.setProperty('--ty', (pmy / innerHeight - 0.5) * depths[i] + 'px');
+        });
+        pRaf = false;
+      });
+    }
+  });
+}
 
 /* ─── 16. CLOCK — Kashmir / IST ─── */
 const ft = document.getElementById('f-time');
@@ -351,6 +371,8 @@ document.getElementById('f-year').textContent = `Engineering from Kashmir · ${n
     toggle.classList.add('open');
     document.body.classList.add('nav-open');
     toggle.setAttribute('aria-expanded', 'true');
+    // Always show nav bar while overlay is open
+    topNav.classList.remove('nav-hidden');
   }
 
   function closeNav() {
@@ -364,10 +386,10 @@ document.getElementById('f-year').textContent = `Engineering from Kashmir · ${n
     mobileNav.classList.contains('open') ? closeNav() : openNav();
   });
 
-  // Close on any link tap
+  // Close on any link tap — small delay so smooth scroll starts first
   links.forEach(link => {
     link.addEventListener('click', () => {
-      closeNav();
+      setTimeout(closeNav, 80);
     });
   });
 
