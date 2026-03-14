@@ -4,31 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shahid Lone — Systems Builder</title>
-
-  <!-- SEO -->
   <meta name="description"  content="Shahid Lone — Systems Builder from Kashmir. Building AI, food infrastructure, social platforms, and scalable software systems.">
   <meta name="keywords"     content="Shahid Lone, Kashmir developer, AI engineer, machine learning, systems builder, Bitez, Ghost AI">
   <meta name="author"       content="Shahid Lone">
   <link rel="canonical"     href="https://shahidlone.com">
-
-  <!-- Open Graph -->
   <meta property="og:title"       content="Shahid Lone — Systems Builder">
   <meta property="og:description" content="Five systems. One builder. Kashmir.">
   <meta property="og:image"       content="/preview.jpg">
   <meta property="og:type"        content="website">
   <meta property="og:url"         content="https://shahidlone.com">
   <meta property="og:site_name"   content="Shahid Lone">
-
   <meta name="theme-color" content="#000000">
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Geist:wght@300;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
-
-  <!-- Icons -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23000000'/><text x='50%25' y='68%25' text-anchor='middle' font-size='62' fill='%23f0ebe2' font-family='Georgia,serif' font-style='italic'>S</text></svg>">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
   <link rel="stylesheet" href="index.css">
 </head>
 <body class="loading">
@@ -46,35 +36,33 @@
 <div id="c-ring"></div>
 <div id="prog"></div>
 
-<!-- PROJECT HOVER PREVIEW -->
-<div id="proj-preview">
-  <img src="" alt="Project preview" id="pp-img"
-       onerror="this.style.display='none';this.parentElement.style.background='#1a1a1a'">
-  <span class="pp-label" id="pp-label"></span>
+<!-- IMAGE LIGHTBOX -->
+<div id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image preview">
+  <button id="lightbox-close" aria-label="Close preview">✕</button>
+  <div id="lightbox-inner">
+    <img id="lightbox-img" src="" alt="">
+    <div id="lightbox-cap"></div>
+  </div>
 </div>
 
-<!-- MOBILE NAV OVERLAY -->
+<!-- MOBILE NAV BACKDROP + DRAWER -->
+<div id="mobile-nav-backdrop"></div>
 <div id="mobile-nav" role="dialog" aria-modal="true" aria-label="Navigation">
   <nav class="mobile-nav-links">
-    <a href="#hero"      class="mobile-nav-link" style="--sd:.08s">Home      <em>01</em></a>
-    <a href="#projects"  class="mobile-nav-link" style="--sd:.16s">Work      <em>02</em></a>
-    <a href="#manifesto" class="mobile-nav-link" style="--sd:.24s">Mindset   <em>03</em></a>
-    <a href="#stack"     class="mobile-nav-link" style="--sd:.32s">Stack     <em>04</em></a>
-    <a href="#moments"   class="mobile-nav-link" style="--sd:.40s">Life      <em>05</em></a>
-    <a href="#buildlog"  class="mobile-nav-link" style="--sd:.48s">Log       <em>06</em></a>
-    <a href="#contact"   class="mobile-nav-link" style="--sd:.56s">Contact   <em>07</em></a>
+    <a href="#hero"      class="mobile-nav-link" style="--sd:.06s">Home</a>
+    <a href="#projects"  class="mobile-nav-link" style="--sd:.12s">Work</a>
+    <a href="#ventures"  class="mobile-nav-link" style="--sd:.18s">Stats</a>
+    <a href="#manifesto" class="mobile-nav-link" style="--sd:.24s">Mindset</a>
+    <a href="#stack"     class="mobile-nav-link" style="--sd:.30s">Stack</a>
+    <a href="#moments"   class="mobile-nav-link" style="--sd:.36s">Life</a>
+    <a href="#buildlog"  class="mobile-nav-link" style="--sd:.42s">Log</a>
+    <a href="#contact"   class="mobile-nav-link" style="--sd:.48s">Contact</a>
   </nav>
-  <div class="mobile-nav-footer">
-    <a href="https://github.com/ghost-hub-champ"  target="_blank" rel="noopener">GitHub</a>
-    <a href="https://linkedin.com/in/shahid1855"  target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://instagram.com/shahiiiid.lone" target="_blank" rel="noopener">Instagram</a>
-  </div>
 </div>
 
 <!-- DESKTOP NAV + HAMBURGER -->
 <nav id="top-nav">
   <span class="n-mark">Shahid Lone</span>
-  <!-- Desktop links -->
   <div class="n-links" id="nav-links">
     <span class="n-indicator" id="nav-ind"></span>
     <a href="#hero"      data-section="hero">Home</a>
@@ -86,15 +74,12 @@
     <a href="#contact"   data-section="contact">Contact</a>
   </div>
   <span class="n-tag">Kashmir · Building</span>
-  <!-- Hamburger — mobile only -->
   <button id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- ═══ HERO ═══ -->
+<!-- ═══ 01 HERO ═══ -->
 <section id="hero">
   <div class="hero-ghost" id="ghost-num">01</div>
   <div class="hero-body">
@@ -117,22 +102,10 @@
     </div>
   </div>
   <div class="hero-strip fu" style="--sd:.7s">
-    <div class="hs-cell">
-      <div class="hs-label">Status</div>
-      <div class="hs-val live">Building</div>
-    </div>
-    <div class="hs-cell">
-      <div class="hs-label">Active ventures</div>
-      <div class="hs-val">05</div>
-    </div>
-    <div class="hs-cell">
-      <div class="hs-label">Primary mission</div>
-      <div class="hs-val">Ghost</div>
-    </div>
-    <div class="hs-cell" style="text-align:right">
-      <div class="hs-label">Node</div>
-      <div class="hs-val">Kulgam · J&amp;K</div>
-    </div>
+    <div class="hs-cell"><div class="hs-label">Status</div><div class="hs-val live">Building</div></div>
+    <div class="hs-cell"><div class="hs-label">Active ventures</div><div class="hs-val">05</div></div>
+    <div class="hs-cell"><div class="hs-label">Primary mission</div><div class="hs-val">Ghost</div></div>
+    <div class="hs-cell" style="text-align:right"><div class="hs-label">Node</div><div class="hs-val">Kulgam · J&amp;K</div></div>
   </div>
 </section>
 
@@ -158,7 +131,7 @@
   </div>
 </div>
 
-<!-- ═══ PROJECTS ═══ -->
+<!-- ═══ 02 PROJECTS ═══ -->
 <section id="projects" class="sec sec-reveal">
   <div class="sec-head fu">
     <span class="sec-title">Work</span>
@@ -176,9 +149,12 @@
       </a>
       <div class="proj-detail" id="detail-0">
         <div class="proj-detail-inner">
-          <div><div class="pd-label">Stack</div><div class="pd-val">React Native · Node.js · MongoDB</div></div>
-          <div><div class="pd-label">Role</div><div class="pd-val">Full-stack · 4 apps</div></div>
-          <div><div class="pd-label">Stage</div><div class="pd-val">MVP complete</div></div>
+          <div class="proj-img-panel"><img src="images/pic1.jpg" alt="Bitez" loading="lazy"></div>
+          <div class="proj-info-panel">
+            <div><div class="pd-label">Stack</div><div class="pd-val">React Native · Node.js · MongoDB</div></div>
+            <div><div class="pd-label">Role</div><div class="pd-val">Full-stack · 4 apps</div></div>
+            <div><div class="pd-label">Stage</div><div class="pd-val">MVP complete</div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -193,9 +169,12 @@
       </a>
       <div class="proj-detail" id="detail-1">
         <div class="proj-detail-inner">
-          <div><div class="pd-label">Stack</div><div class="pd-val">C++ · Python · PyTorch</div></div>
-          <div><div class="pd-label">Role</div><div class="pd-val">Solo research</div></div>
-          <div><div class="pd-label">Stage</div><div class="pd-val">Long game</div></div>
+          <div class="proj-img-panel"><img src="images/pic2.jpg" alt="Ghost" loading="lazy"></div>
+          <div class="proj-info-panel">
+            <div><div class="pd-label">Stack</div><div class="pd-val">C++ · Python · PyTorch</div></div>
+            <div><div class="pd-label">Role</div><div class="pd-val">Solo research</div></div>
+            <div><div class="pd-label">Stage</div><div class="pd-val">Long game</div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -210,9 +189,12 @@
       </a>
       <div class="proj-detail" id="detail-2">
         <div class="proj-detail-inner">
-          <div><div class="pd-label">Stack</div><div class="pd-val">React Native · Node.js</div></div>
-          <div><div class="pd-label">Role</div><div class="pd-val">Full-stack</div></div>
-          <div><div class="pd-label">Stage</div><div class="pd-val">Early build</div></div>
+          <div class="proj-img-panel"><img src="images/pic3.jpg" alt="Forge" loading="lazy"></div>
+          <div class="proj-info-panel">
+            <div><div class="pd-label">Stack</div><div class="pd-val">React Native · Node.js</div></div>
+            <div><div class="pd-label">Role</div><div class="pd-val">Full-stack</div></div>
+            <div><div class="pd-label">Stage</div><div class="pd-val">Early build</div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -227,9 +209,12 @@
       </a>
       <div class="proj-detail" id="detail-3">
         <div class="proj-detail-inner">
-          <div><div class="pd-label">Stack</div><div class="pd-val">Web · Logistics API</div></div>
-          <div><div class="pd-label">Role</div><div class="pd-val">Founder · Builder</div></div>
-          <div><div class="pd-label">Stage</div><div class="pd-val">Building</div></div>
+          <div class="proj-img-panel"><img src="images/pic4.jpg" alt="Kashmir Export" loading="lazy"></div>
+          <div class="proj-info-panel">
+            <div><div class="pd-label">Stack</div><div class="pd-val">Web · Logistics API</div></div>
+            <div><div class="pd-label">Role</div><div class="pd-val">Founder · Builder</div></div>
+            <div><div class="pd-label">Stage</div><div class="pd-val">Building</div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -244,9 +229,12 @@
       </a>
       <div class="proj-detail" id="detail-4">
         <div class="proj-detail-inner">
-          <div><div class="pd-label">Stack</div><div class="pd-val">Python · DistilBERT · HuggingFace</div></div>
-          <div><div class="pd-label">Role</div><div class="pd-val">ML Engineer</div></div>
-          <div><div class="pd-label">Stage</div><div class="pd-val">Live</div></div>
+          <div class="proj-img-panel"><img src="images/pic5.jpg" alt="Tone Classifier" loading="lazy"></div>
+          <div class="proj-info-panel">
+            <div><div class="pd-label">Stack</div><div class="pd-val">Python · DistilBERT · HuggingFace</div></div>
+            <div><div class="pd-label">Role</div><div class="pd-val">ML Engineer</div></div>
+            <div><div class="pd-label">Stage</div><div class="pd-val">Live</div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -254,7 +242,7 @@
   </div>
 </section>
 
-<!-- ═══ VENTURES ═══ -->
+<!-- ═══ 03 VENTURES ═══ -->
 <div id="ventures" class="sec-reveal">
   <div class="vc fu">
     <div class="vc-num">5</div>
@@ -273,7 +261,7 @@
   </div>
 </div>
 
-<!-- ═══ MANIFESTO ═══ -->
+<!-- ═══ 04 MANIFESTO ═══ -->
 <section id="manifesto" class="sec sec-reveal">
   <div class="fu">
     <div class="mf-label">Mindset</div>
@@ -310,88 +298,116 @@
   </div>
 </section>
 
-<!-- ═══ STACK ═══ -->
+<!-- ═══ 05 STACK ═══ -->
 <section id="stack" class="sec sec-reveal">
   <div class="sec-head fu"><span class="sec-title">Stack</span></div>
   <div class="stack-grid fu" style="--sd:.1s">
-    <div class="sk">
-      <div class="sk-layer">Systems Layer</div>
-      <div class="sk-name">C / C++</div>
-      <div class="sk-detail">Memory · Performance · Low-level</div>
-      <div class="sk-about">Fundamentals first. Everything else is built on this.</div>
-    </div>
-    <div class="sk">
-      <div class="sk-layer">Intelligence Layer</div>
-      <div class="sk-name">Python · ML</div>
-      <div class="sk-detail">PyTorch · HuggingFace · Transformers</div>
-      <div class="sk-about">NLP, classification, model training.</div>
-    </div>
-    <div class="sk">
-      <div class="sk-layer">Backend Layer</div>
-      <div class="sk-name">Node.js</div>
-      <div class="sk-detail">Express · MongoDB · Socket.io · JWT</div>
-      <div class="sk-about">Full API architecture. Real-time systems.</div>
-    </div>
-    <div class="sk">
-      <div class="sk-layer">Foundations</div>
-      <div class="sk-name">DSA</div>
-      <div class="sk-detail">Algorithms · Data structures · Complexity</div>
-      <div class="sk-about">Competitive thinking. Problem decomposition.</div>
-    </div>
-    <div class="sk">
-      <div class="sk-layer">Environment</div>
-      <div class="sk-name">Linux</div>
-      <div class="sk-detail">Bash · Git · CLI-first workflow</div>
-      <div class="sk-about">Terminal-native. OS-level understanding.</div>
-    </div>
-    <div class="sk">
-      <div class="sk-layer">Interface Layer</div>
-      <div class="sk-name">React Native</div>
-      <div class="sk-detail">Expo · Cross-platform · Mobile-first</div>
-      <div class="sk-about">Building for the hand, not the desk.</div>
-    </div>
+    <div class="sk"><div class="sk-layer">Systems Layer</div><div class="sk-name">C / C++</div><div class="sk-detail">Memory · Performance · Low-level</div><div class="sk-about">Fundamentals first. Everything else is built on this.</div></div>
+    <div class="sk"><div class="sk-layer">Intelligence Layer</div><div class="sk-name">Python · ML</div><div class="sk-detail">PyTorch · HuggingFace · Transformers</div><div class="sk-about">NLP, classification, model training.</div></div>
+    <div class="sk"><div class="sk-layer">Backend Layer</div><div class="sk-name">Node.js</div><div class="sk-detail">Express · MongoDB · Socket.io · JWT</div><div class="sk-about">Full API architecture. Real-time systems.</div></div>
+    <div class="sk"><div class="sk-layer">Foundations</div><div class="sk-name">DSA</div><div class="sk-detail">Algorithms · Data structures · Complexity</div><div class="sk-about">Competitive thinking. Problem decomposition.</div></div>
+    <div class="sk"><div class="sk-layer">Environment</div><div class="sk-name">Linux</div><div class="sk-detail">Bash · Git · CLI-first workflow</div><div class="sk-about">Terminal-native. OS-level understanding.</div></div>
+    <div class="sk"><div class="sk-layer">Interface Layer</div><div class="sk-name">React Native</div><div class="sk-detail">Expo · Cross-platform · Mobile-first</div><div class="sk-about">Building for the hand, not the desk.</div></div>
   </div>
 </section>
 
-<!-- ═══ MOMENTS ═══ -->
+<!-- ═══ 06 MOMENTS ═══ -->
 <section id="moments" class="sec sec-reveal">
   <div class="sec-head fu">
     <span class="sec-title">Life</span>
     <span class="sec-meta">Beyond the screen</span>
   </div>
   <div class="mgrid fu" style="--sd:.1s">
-    <div class="mo" data-cap="Kashmir">
+    <div class="mo" data-cap="Kashmir" data-img="images/pic1.jpg">
       <img loading="lazy" decoding="async" src="images/pic1.jpg" alt="Kashmir landscape"
            onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Kashmir</span></div>'">
     </div>
-    <div class="mo" data-cap="Late nights">
+    <div class="mo" data-cap="Late nights" data-img="images/pic2.jpg">
       <img loading="lazy" decoding="async" src="images/pic2.jpg" alt="Late night coding"
            onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Late nights</span></div>'">
     </div>
-    <div class="mo" data-cap="Training">
+    <div class="mo" data-cap="Training" data-img="images/pic3.jpg">
       <img loading="lazy" decoding="async" src="images/pic3.jpg" alt="Training ML models"
            onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Training</span></div>'">
     </div>
-    <div class="mo" data-cap="Code">
+    <div class="mo" data-cap="Code" data-img="images/pic4.jpg">
       <img loading="lazy" decoding="async" src="images/pic4.jpg" alt="Writing code"
            onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Code</span></div>'">
     </div>
-    <div class="mo" data-cap="Valley mornings">
+    <div class="mo" data-cap="Valley mornings" data-img="images/pic5.jpg">
       <img loading="lazy" decoding="async" src="images/pic5.jpg" alt="Morning in Kashmir valley"
            onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Valley mornings</span></div>'">
     </div>
-    <div class="mo" data-cap="Momentum">
+    <div class="mo" data-cap="Momentum" data-img="images/pic6.jpg">
       <img loading="lazy" decoding="async" src="images/pic6.jpg" alt="Momentum"
            onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Momentum</span></div>'">
     </div>
-    <div class="mo" data-cap="Origin">
+    <div class="mo" data-cap="Origin" data-img="images/pic7.jpg">
       <img loading="lazy" decoding="async" src="images/pic7.jpg" alt="Origin"
            onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Origin</span></div>'">
     </div>
   </div>
 </section>
 
-<!-- ═══ CONTACT ═══ -->
+<!-- ═══ 07 BUILD LOG ═══ -->
+<section id="buildlog" class="sec sec-reveal">
+  <div class="sec-head fu">
+    <span class="sec-title">Build Log</span>
+    <span class="sec-meta">Momentum, documented</span>
+  </div>
+  <div class="blog-list fu" style="--sd:.08s">
+    <div class="blog-row">
+      <div class="blog-date">Mar 2026</div>
+      <div class="blog-body">
+        <div class="blog-title">AI menu scanner — Bitez partner app</div>
+        <div class="blog-detail">Gemini-powered scanner reads photos, PDFs, and raw text into a three-layer Category → Item → Variant structure. Bulk import with full variant creation.</div>
+      </div>
+      <div class="blog-tag">Bitez</div>
+    </div>
+    <div class="blog-row">
+      <div class="blog-date">Feb 2026</div>
+      <div class="blog-body">
+        <div class="blog-title">Avatar upload system — all three apps</div>
+        <div class="blog-detail">Fixed JWT middleware, Zustand persistence rehydration, and axios interceptor logic across user, partner, and rider apps.</div>
+      </div>
+      <div class="blog-tag">Bitez</div>
+    </div>
+    <div class="blog-row">
+      <div class="blog-date">Jan 2026</div>
+      <div class="blog-body">
+        <div class="blog-title">Sarcasm detection model — live</div>
+        <div class="blog-detail">DistilBERT fine-tuned on contextual tone data. Deployed to HuggingFace. Detects sarcasm relative to conversational context, not just sentence-level cues.</div>
+      </div>
+      <div class="blog-tag">Ghost</div>
+    </div>
+    <div class="blog-row">
+      <div class="blog-date">Dec 2025</div>
+      <div class="blog-body">
+        <div class="blog-title">Bitez rider routing — real-time engine</div>
+        <div class="blog-detail">Socket.io-based live order tracking and rider dispatch. Handles concurrent delivery assignments with conflict resolution.</div>
+      </div>
+      <div class="blog-tag">Bitez</div>
+    </div>
+    <div class="blog-row">
+      <div class="blog-date">Nov 2025</div>
+      <div class="blog-body">
+        <div class="blog-title">Ghost — architecture begins</div>
+        <div class="blog-detail">Started designing the core inference engine in C++. Studying transformer internals at the weight level. This is the long game.</div>
+      </div>
+      <div class="blog-tag">Ghost</div>
+    </div>
+    <div class="blog-row">
+      <div class="blog-date">Oct 2025</div>
+      <div class="blog-body">
+        <div class="blog-title">Kashmir Export — first prototype</div>
+        <div class="blog-detail">Built the first version of the direct-to-buyer marketplace for Kashmiri agricultural produce. No middlemen. Targeting saffron farmers first.</div>
+      </div>
+      <div class="blog-tag">Kashmir Export</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 08 CONTACT ═══ -->
 <section id="contact" class="sec sec-reveal">
   <div class="sec-head fu"><span class="sec-title">Contact</span></div>
   <div class="contact-grid">
@@ -407,10 +423,10 @@
       </p>
     </div>
     <div class="fu" style="--sd:.22s">
-      <a href="/cdn-cgi/l/email-protection#bdced5dcd5d4d98c858d888d88fddad0dcd4d193ded2d0" class="c-email-row">
+      <a href="mailto:shahid.lone.dev@gmail.com" class="c-email-row">
         <div>
           <div class="ce-label">Email</div>
-          <div class="ce-val"><span class="__cf_email__" data-cfemail="74071c151c1d10454c44414441341319151d185a171b19">[email&#160;protected]</span></div>
+          <div class="ce-val">shahid.lone.dev@gmail.com</div>
         </div>
         <span style="color:var(--off-3);font-size:14px;transition:color .25s">↗</span>
       </a>
@@ -431,73 +447,6 @@
     </div>
   </div>
 </section>
-
-
-<!-- ═══ BUILD LOG ═══ -->
-<section id="buildlog" class="sec sec-reveal">
-  <div class="sec-head fu">
-    <span class="sec-title">Build Log</span>
-    <span class="sec-meta">Momentum, documented</span>
-  </div>
-  <div class="blog-list fu" style="--sd:.08s">
-
-    <div class="blog-row">
-      <div class="blog-date">Mar 2026</div>
-      <div class="blog-body">
-        <div class="blog-title">AI menu scanner — Bitez partner app</div>
-        <div class="blog-detail">Gemini-powered scanner reads photos, PDFs, and raw text into a three-layer Category → Item → Variant structure. Bulk import with full variant creation.</div>
-      </div>
-      <div class="blog-tag">Bitez</div>
-    </div>
-
-    <div class="blog-row">
-      <div class="blog-date">Feb 2026</div>
-      <div class="blog-body">
-        <div class="blog-title">Avatar upload system — all three apps</div>
-        <div class="blog-detail">Fixed JWT middleware, Zustand persistence rehydration, and axios interceptor logic across user, partner, and rider apps.</div>
-      </div>
-      <div class="blog-tag">Bitez</div>
-    </div>
-
-    <div class="blog-row">
-      <div class="blog-date">Jan 2026</div>
-      <div class="blog-body">
-        <div class="blog-title">Sarcasm detection model — live</div>
-        <div class="blog-detail">DistilBERT fine-tuned on contextual tone data. Deployed to HuggingFace. Detects sarcasm relative to conversational context, not just sentence-level cues.</div>
-      </div>
-      <div class="blog-tag">Ghost</div>
-    </div>
-
-    <div class="blog-row">
-      <div class="blog-date">Dec 2025</div>
-      <div class="blog-body">
-        <div class="blog-title">Bitez rider routing — real-time engine</div>
-        <div class="blog-detail">Socket.io-based live order tracking and rider dispatch. Handles concurrent delivery assignments with conflict resolution.</div>
-      </div>
-      <div class="blog-tag">Bitez</div>
-    </div>
-
-    <div class="blog-row">
-      <div class="blog-date">Nov 2025</div>
-      <div class="blog-body">
-        <div class="blog-title">Ghost — architecture begins</div>
-        <div class="blog-detail">Started designing the core inference engine in C++. Studying transformer internals at the weight level. This is the long game.</div>
-      </div>
-      <div class="blog-tag">Ghost</div>
-    </div>
-
-    <div class="blog-row">
-      <div class="blog-date">Oct 2025</div>
-      <div class="blog-body">
-        <div class="blog-title">Kashmir Export — first prototype</div>
-        <div class="blog-detail">Built the first version of the direct-to-buyer marketplace for Kashmiri agricultural produce. No middlemen. Targeting saffron farmers first.</div>
-      </div>
-      <div class="blog-tag">Kashmir Export</div>
-    </div>
-
-  </div>
-</section>
-
 
 <footer>
   <span>© Shahid Lone</span>
