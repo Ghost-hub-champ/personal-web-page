@@ -337,3 +337,42 @@ tick();
 
 /* ─── 17. FOOTER YEAR ─── */
 document.getElementById('f-year').textContent = `Engineering from Kashmir · ${new Date().getFullYear()}`;
+
+/* ─── MOBILE NAV — HAMBURGER TOGGLE ─── */
+(function () {
+  const toggle    = document.getElementById('nav-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  const links     = document.querySelectorAll('.mobile-nav-link');
+
+  if (!toggle || !mobileNav) return;
+
+  function openNav() {
+    mobileNav.classList.add('open');
+    toggle.classList.add('open');
+    document.body.classList.add('nav-open');
+    toggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeNav() {
+    mobileNav.classList.remove('open');
+    toggle.classList.remove('open');
+    document.body.classList.remove('nav-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', () => {
+    mobileNav.classList.contains('open') ? closeNav() : openNav();
+  });
+
+  // Close on any link tap
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      closeNav();
+    });
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeNav();
+  });
+})();
