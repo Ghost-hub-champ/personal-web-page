@@ -45,6 +45,19 @@
   </div>
 </div>
 
+<!-- SEARCH OVERLAY -->
+<div id="search-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Site search">
+  <div id="search-box">
+    <div id="search-input-wrap">
+      <span id="search-icon">⌕</span>
+      <input id="search-input" type="text" placeholder="Search projects, stack, log…" autocomplete="off" spellcheck="false">
+      <button id="search-clear" aria-label="Clear search" tabindex="-1">✕</button>
+    </div>
+    <div id="search-results"></div>
+    <div id="search-empty">No results</div>
+  </div>
+</div>
+
 <!-- MOBILE NAV BACKDROP + DRAWER -->
 <div id="mobile-nav-backdrop"></div>
 <div id="mobile-nav" role="dialog" aria-modal="true" aria-label="Navigation">
@@ -74,6 +87,12 @@
     <a href="#contact"   data-section="contact">Contact</a>
   </div>
   <span class="n-tag">Kashmir · Building</span>
+  <!-- Inline search bar — desktop and mobile -->
+  <div id="nav-search-bar">
+    <span class="nav-search-icon">⌕</span>
+    <input id="nav-search-input" type="text" placeholder="Search…" autocomplete="off" spellcheck="false" aria-label="Search site">
+    <button id="nav-search-clear" aria-label="Clear" tabindex="-1">✕</button>
+  </div>
   <button id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -447,7 +466,6 @@
     </div>
   </div>
 </section>
-
 <footer>
   <span>© Shahid Lone</span>
   <span id="f-time"></span>
