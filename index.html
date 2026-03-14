@@ -4,14 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shahid Lone — Systems Builder</title>
+
+  <!-- SEO -->
+  <meta name="description"  content="Shahid Lone — Systems Builder from Kashmir. Building AI, food infrastructure, social platforms, and scalable software systems.">
+  <meta name="keywords"     content="Shahid Lone, Kashmir developer, AI engineer, machine learning, systems builder, Bitez, Ghost AI">
+  <meta name="author"       content="Shahid Lone">
+  <link rel="canonical"     href="https://shahidlone.com">
+
+  <!-- Open Graph -->
   <meta property="og:title"       content="Shahid Lone — Systems Builder">
   <meta property="og:description" content="Five systems. One builder. Kashmir.">
   <meta property="og:image"       content="/preview.jpg">
   <meta property="og:type"        content="website">
-  <meta name="theme-color"        content="#000000">
+  <meta property="og:url"         content="https://shahidlone.com">
+  <meta property="og:site_name"   content="Shahid Lone">
+
+  <meta name="theme-color" content="#000000">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Geist:wght@300;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23000000'/><text x='50%25' y='68%25' text-anchor='middle' font-size='62' fill='%23f0ebe2' font-family='Georgia,serif' font-style='italic'>S</text></svg>">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
   <link rel="stylesheet" href="index.css">
 </head>
 <body class="loading">
@@ -44,7 +61,8 @@
     <a href="#manifesto" class="mobile-nav-link" style="--sd:.24s">Mindset   <em>03</em></a>
     <a href="#stack"     class="mobile-nav-link" style="--sd:.32s">Stack     <em>04</em></a>
     <a href="#moments"   class="mobile-nav-link" style="--sd:.40s">Life      <em>05</em></a>
-    <a href="#contact"   class="mobile-nav-link" style="--sd:.48s">Contact   <em>06</em></a>
+    <a href="#buildlog"  class="mobile-nav-link" style="--sd:.48s">Log       <em>06</em></a>
+    <a href="#contact"   class="mobile-nav-link" style="--sd:.56s">Contact   <em>07</em></a>
   </nav>
   <div class="mobile-nav-footer">
     <a href="https://github.com/ghost-hub-champ"  target="_blank" rel="noopener">GitHub</a>
@@ -64,6 +82,7 @@
     <a href="#manifesto" data-section="manifesto">Mindset</a>
     <a href="#stack"     data-section="stack">Stack</a>
     <a href="#moments"   data-section="moments">Life</a>
+    <a href="#buildlog"  data-section="buildlog">Log</a>
     <a href="#contact"   data-section="contact">Contact</a>
   </div>
   <span class="n-tag">Kashmir · Building</span>
@@ -153,7 +172,7 @@
         <span class="p-name">Bitez</span>
         <span class="p-about">Food delivery platform. User, partner, rider, admin — four apps, one system.</span>
         <span class="p-status s-build">Building</span>
-        <button class="proj-expand" aria-label="Toggle Bitez details">+</button>
+        <button type="button" class="proj-expand" aria-label="Toggle Bitez details">+</button>
       </a>
       <div class="proj-detail" id="detail-0">
         <div class="proj-detail-inner">
@@ -170,7 +189,7 @@
         <span class="p-name">Ghost</span>
         <span class="p-about">Hyper-optimised generative intelligence. The life's work.</span>
         <span class="p-status s-deep">Long game</span>
-        <button class="proj-expand" aria-label="Toggle Ghost details">+</button>
+        <button type="button" class="proj-expand" aria-label="Toggle Ghost details">+</button>
       </a>
       <div class="proj-detail" id="detail-1">
         <div class="proj-detail-inner">
@@ -187,7 +206,7 @@
         <span class="p-name">Forge</span>
         <span class="p-about">A social platform built on different rules.</span>
         <span class="p-status s-build">Building</span>
-        <button class="proj-expand" aria-label="Toggle Forge details">+</button>
+        <button type="button" class="proj-expand" aria-label="Toggle Forge details">+</button>
       </a>
       <div class="proj-detail" id="detail-2">
         <div class="proj-detail-inner">
@@ -204,7 +223,7 @@
         <span class="p-name">Kashmir Export</span>
         <span class="p-about">Kashmiri farmers. Global markets. No middlemen.</span>
         <span class="p-status s-build">Building</span>
-        <button class="proj-expand" aria-label="Toggle Kashmir Export details">+</button>
+        <button type="button" class="proj-expand" aria-label="Toggle Kashmir Export details">+</button>
       </a>
       <div class="proj-detail" id="detail-3">
         <div class="proj-detail-inner">
@@ -221,7 +240,7 @@
         <span class="p-name">Tone Classifier</span>
         <span class="p-about">DistilBERT model. Detects sarcasm relative to context.</span>
         <span class="p-status s-live">Live</span>
-        <button class="proj-expand" aria-label="Toggle Tone Classifier details">+</button>
+        <button type="button" class="proj-expand" aria-label="Toggle Tone Classifier details">+</button>
       </a>
       <div class="proj-detail" id="detail-4">
         <div class="proj-detail-inner">
@@ -342,7 +361,7 @@
   </div>
   <div class="mgrid fu" style="--sd:.1s">
     <div class="mo" data-cap="Kashmir">
-      <img loading="eager" decoding="async" src="images/pic1.jpg" alt="Kashmir landscape"
+      <img loading="lazy" decoding="async" src="images/pic1.jpg" alt="Kashmir landscape"
            onerror="this.parentElement.innerHTML='<div class=\'mo-ph\'><span>Kashmir</span></div>'">
     </div>
     <div class="mo" data-cap="Late nights">
@@ -413,12 +432,78 @@
   </div>
 </section>
 
+
+<!-- ═══ BUILD LOG ═══ -->
+<section id="buildlog" class="sec sec-reveal">
+  <div class="sec-head fu">
+    <span class="sec-title">Build Log</span>
+    <span class="sec-meta">Momentum, documented</span>
+  </div>
+  <div class="blog-list fu" style="--sd:.08s">
+
+    <div class="blog-row">
+      <div class="blog-date">Mar 2026</div>
+      <div class="blog-body">
+        <div class="blog-title">AI menu scanner — Bitez partner app</div>
+        <div class="blog-detail">Gemini-powered scanner reads photos, PDFs, and raw text into a three-layer Category → Item → Variant structure. Bulk import with full variant creation.</div>
+      </div>
+      <div class="blog-tag">Bitez</div>
+    </div>
+
+    <div class="blog-row">
+      <div class="blog-date">Feb 2026</div>
+      <div class="blog-body">
+        <div class="blog-title">Avatar upload system — all three apps</div>
+        <div class="blog-detail">Fixed JWT middleware, Zustand persistence rehydration, and axios interceptor logic across user, partner, and rider apps.</div>
+      </div>
+      <div class="blog-tag">Bitez</div>
+    </div>
+
+    <div class="blog-row">
+      <div class="blog-date">Jan 2026</div>
+      <div class="blog-body">
+        <div class="blog-title">Sarcasm detection model — live</div>
+        <div class="blog-detail">DistilBERT fine-tuned on contextual tone data. Deployed to HuggingFace. Detects sarcasm relative to conversational context, not just sentence-level cues.</div>
+      </div>
+      <div class="blog-tag">Ghost</div>
+    </div>
+
+    <div class="blog-row">
+      <div class="blog-date">Dec 2025</div>
+      <div class="blog-body">
+        <div class="blog-title">Bitez rider routing — real-time engine</div>
+        <div class="blog-detail">Socket.io-based live order tracking and rider dispatch. Handles concurrent delivery assignments with conflict resolution.</div>
+      </div>
+      <div class="blog-tag">Bitez</div>
+    </div>
+
+    <div class="blog-row">
+      <div class="blog-date">Nov 2025</div>
+      <div class="blog-body">
+        <div class="blog-title">Ghost — architecture begins</div>
+        <div class="blog-detail">Started designing the core inference engine in C++. Studying transformer internals at the weight level. This is the long game.</div>
+      </div>
+      <div class="blog-tag">Ghost</div>
+    </div>
+
+    <div class="blog-row">
+      <div class="blog-date">Oct 2025</div>
+      <div class="blog-body">
+        <div class="blog-title">Kashmir Export — first prototype</div>
+        <div class="blog-detail">Built the first version of the direct-to-buyer marketplace for Kashmiri agricultural produce. No middlemen. Targeting saffron farmers first.</div>
+      </div>
+      <div class="blog-tag">Kashmir Export</div>
+    </div>
+
+  </div>
+</section>
+
 <footer>
   <span>© Shahid Lone</span>
   <span id="f-time"></span>
   <span id="f-year"></span>
 </footer>
 
-<script src="index.js"></script>
+<script src="index.js" defer></script>
 </body>
 </html>
